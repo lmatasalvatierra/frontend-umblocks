@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import NoMatch from '../layouts/no_match/NoMatch'
 import { Redirect } from 'react-router-dom';
 import Login from '../layouts/login/Login';
+import OwnerIndex from '../layouts/owner/index'
 
 class Routes extends Component {
   render() {
@@ -10,6 +11,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/" component={() => (<Redirect to={'/login'}/>)} />
         <Route path="/login" component={Login} />
+        <Route path="/owner" component={OwnerIndex} />
         <Route component={NoMatch} />
       </Switch>
     );

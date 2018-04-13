@@ -97,14 +97,14 @@
   color: #ffffff;
 }
 
-.list-menu {
+.main-container {
   margin-left: 6vw;
   margin-right: 6vw;
   border-radius: 5px;
   min-height: 80vh;
 }
 
-.list-header {
+.table-header {
   background-color: #000000;
   padding-left: 16px;
   padding-top: 20px;
@@ -114,7 +114,7 @@
   border-top-right-radius: 5px;
 }
 
-.list-header__title {
+.table-header__title {
   font-family: "PingFang SC";
   text-align: left;
   font-size: 4vh;
@@ -123,7 +123,7 @@
   color: #ffffff;
 }
 
-.list-header__add-button {
+.table-header__add-button {
   font-family: "PingFang SC";
   font-size: 2.5vh;
   font-weight: 300;
@@ -139,7 +139,7 @@
   font-family: "PingFang SC";
 }
 
-.list-table {
+.table {
   font-size: 3vh;
 }
 
@@ -148,7 +148,7 @@
   margin-bottom: 20px;
 }
 
-.list-table__row--header {
+.table__row--header {
   font-weight: 700;
   font-size: 16px;
 }
