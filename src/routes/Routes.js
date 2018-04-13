@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Login from '../layouts/login/Login';
 import OwnerIndex from '../layouts/owner/index'
 import BrokerIndex from '../layouts/broker/index'
+import CarrierIndex from '../layouts/carrier/index'
 
 class Routes extends Component {
   render() {
@@ -14,6 +15,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/owner" component={OwnerIndex} />
         <Route path="/broker" component={BrokerIndex} />
+        <Route path="/carrier" component={CarrierIndex} />
         <Route component={NoMatch} />
       </Switch>
     );
