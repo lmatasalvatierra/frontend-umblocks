@@ -42,7 +42,7 @@ class LoginForm extends Component {
       rules: [{ required: true, message: 'Please input your Password!' }]
     });
     return (
-      <Form className="login-form" onSubmit={this.handleSubmit}>
+      <Form className="form" onSubmit={this.handleSubmit}>
         <FormItem style={{ marginBottom: 16 }}>
           {
             usernameProps(
