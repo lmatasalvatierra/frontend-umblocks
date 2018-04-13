@@ -4,7 +4,7 @@ import { Row, Col, Button, Table, Input, Divider } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout'
 import CreatePolicy from '../../components/create_policy/CreatePolicy'
-
+import { POLICY_SUBMIT } from '../../constant/ActionTypes'
 
 const columns = [
   {
@@ -125,7 +125,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     storePolicy: (policy) =>
-      dispatch({ type: 'POLICY_SUBMIT', payload: policy})
+      dispatch({ type: POLICY_SUBMIT, payload: policy})
   }
 }
 
