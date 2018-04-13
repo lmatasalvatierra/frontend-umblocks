@@ -4,6 +4,7 @@ import { Row, Col, Button, Table, Input } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout'
 import CreateCertificate from '../../components/create_certificate/CreateCertificate'
+import { CERTIFICATE_SUBMIT } from '../../constant/ActionTypes'
 
 const columns = [
   {
@@ -106,7 +107,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     storeCertificate: (certificate) =>
-      dispatch({ type: 'CERTIFICATE_SUBMIT', payload: certificate })
+      dispatch({ type: CERTIFICATE_SUBMIT, payload: certificate })
   }
 }
 
