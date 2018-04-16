@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
+import { loginUser } from '../../actions/auth'
 const FormItem = Form.Item;
 const createForm = Form.create;
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (username, password) => dispatch(loginUser(username, password))
+  }
+}
 
 class LoginForm extends Component {
 
@@ -16,6 +22,7 @@ class LoginForm extends Component {
         return false;
       }
       const values = (this.props.form.getFieldsValue());
+      this.props.onSubmit(values.userName, values.password);
     });
   }
 
@@ -74,4 +81,4 @@ class LoginForm extends Component {
 }
 
 
-export default connect(null)(createForm()(LoginForm));
+export default connect(null, mapDispatchToProps)(createForm()(LoginForm));
