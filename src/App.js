@@ -3,14 +3,10 @@ import { Provider } from 'react-redux';
 import { store, history } from './store/store';
 import { ConnectedRouter } from 'react-router-redux';
 import Routes from './routes/Routes'
-import getWeb3 from './util/getWeb3'
+import { setUpServerClient } from './util/index'
 import './App.css';
 
-getWeb3.then(results => {
-  console.log('Web3 initialized!')
-}).catch(() => {
-  console.log('Error in web3 initialization.')
-})
+setUpServerClient()
 
 class App extends Component {
   render() {
