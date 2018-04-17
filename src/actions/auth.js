@@ -16,10 +16,17 @@ export function loginUser(username, password) {
     return function(dispatch) {
       const manager = contract(COIManagerContract)
       manager.setProvider(web3.currentProvider)
+      if (typeof manager.currentProvider.sendAsync !== 'function') {
+        manager.currentProvider.sendAsync = function() {
+          return manager.currentProvider.send.apply(
+            manager.currentProvider, arguments
+          );
+        };
+      }
 
       manager.deployed().then(function(instance) {
         // Attempt to sign up user.
-        instance.login.call(web3.fromAscii(username), web3.fromAscii(password)).then(function(result) {
+        instance.login.call(web3.utils.asciiToHex(username), web3.utils.asciiToHex(password)).then(function(result) {
           if(result.toNumber() === 0) {
             dispatch(userLoggedIn({ 'username': username, 'is_authenticated': true, 'user_type': 'owner'}))
             history.push('/owner')
