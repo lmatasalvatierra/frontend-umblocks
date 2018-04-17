@@ -5,10 +5,12 @@ const PrivateRoute = ({ component: Component, isAuthenticated: isAuthenticated, 
   <Route {...rest}
     render={(props) =>
       (
-        isAuthenticated ?
+        isAuthenticated() ?
           <Component {...props} />
           : <Redirect to={'/'} />
       )} />
 )
 
-export default withRouter(PrivateRoute);
+const WrappedPrivateRoute = withRouter(PrivateRoute)
+
+export { WrappedPrivateRoute as default };
