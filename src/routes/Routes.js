@@ -14,6 +14,7 @@ class Routes extends Component {
     super(props);
     this.isOwner = this.isOwner.bind(this);
     this.isCarrier = this.isCarrier.bind(this);
+    this.isBroker = this.isBroker.bind(this);
   }
   isOwner() {
     const authValue = this.props && this.props.data && this.props.data.is_authenticated
@@ -27,13 +28,19 @@ class Routes extends Component {
     return authValue && typeValue === 'carrier';
   }
 
+  isBroker() {
+    const authValue = this.props.data && this.props.data.is_authenticated
+    const typeValue = this.props.data && this.props.data.user_type
+    return authValue && typeValue === 'broker';
+  }
+
   render() {
     return (
       <Switch>
         <Route exact path="/" component={() => (<Redirect to={'/login'}/>)} />
         <Route path="/login" component={Login} />
         <PrivateRoute path="/owner" isAuthenticated={this.isOwner} component={OwnerIndex} />
-        <Route path="/broker" component={BrokerIndex} />
+        <PrivateRoute path="/broker" isAuthenticated={this.isBroker} component={BrokerIndex} />
         <PrivateRoute path="/carrier" isAuthenticated={this.isCarrier} component={CarrierIndex} />
         <Route component={NoMatch} />
       </Switch>
