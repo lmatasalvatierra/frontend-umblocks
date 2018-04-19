@@ -86,7 +86,7 @@ function getClientEnvironment(publicUrl) {
         PUBLIC_URL: publicUrl,
         // ROLLBAR_ACCESS_TOKEN: process.env.ROLLBAR_FRONTEND_TOKEN || '',
         // SEGMENT_ACCESS_TOKEN: process.env.SEGMENT_ACCESS_TOKEN || '',
-        API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:3409',
+        API_BASE_URL: process.env.API_BASE_URL || 'https://localhost:3403',
         APPLICATION_VERSION: getApplicationVersion(),
         FRONTEND_URL: process.env.FRONTEND_URL || '',
       }

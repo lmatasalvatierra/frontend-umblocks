@@ -164,7 +164,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:3203",
+  "proxy": "http://localhost:3403",
   "engines": {
     "node": "8.x",
     "npm": "4.x"

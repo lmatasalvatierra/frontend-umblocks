@@ -25,7 +25,7 @@ app.use(async ctx => {
   await send(ctx, './build/index.html');
 });
 
-const port = process.env.PORT || 3409;
+const port = 3408;
 app.listen(port, () => {
   console.log(`Service started on port ${port}`); // eslint-disable-line no-console
 });
