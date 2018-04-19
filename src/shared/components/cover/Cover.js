@@ -11,7 +11,9 @@ class Cover extends Component {
         />
         <h1 className="cover__title">Umblocks</h1>
         <h2 className="cover__catchphrase">
-          <span className="cover__catchphrase--highlight">Manage your </span>{' '}
+          <span className="cover__catchphrase--highlight">
+            Manage your{' '}
+          </span>{' '}
           <br />
           Certificates of Insurance <br />
           <span className="cover__catchphrase--highlight"> with</span>{' '}

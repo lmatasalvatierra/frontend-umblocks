@@ -13,7 +13,7 @@ const checkExecLoad = (loader, collections) => {
   return false;
 };
 
-module.exports = function *(collections) {
+module.exports = function*(collections) {
   // How many previous versions we want to store
   let versions = 2;
   if (argv.versions) {
@@ -21,7 +21,7 @@ module.exports = function *(collections) {
   }
   try {
     const routesFiles = fs.readdirSync(`${path}/loaders`);
-    for (let i = 0, length = routesFiles.length; i < length; i +=1) {
+    for (let i = 0, length = routesFiles.length; i < length; i += 1) {
       const globalRefresh =
         !collections && routesFiles[i].endsWith('Loader.js');
       const specificCollectionRefresh =
