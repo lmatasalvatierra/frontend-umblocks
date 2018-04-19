@@ -1,0 +1,39 @@
+machine:
+  node:
+    version: 7.7.4
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+  cache_directories:
+    - node_modules
+  override:
+    - yarn
+
+test:
+  override:
+    - yarn test
+
+deployment:
+  staging:
+    branch: staging
+    commands:
+      - ./scripts/deploy_staging.sh
+  beta:
+    branch: beta
+    commands:
+      - ./scripts/deploy_beta.sh
+  production:
+    branch: production
+    commands:
+      - ./scripts/deploy_production.sh
+
+notify:
+  webhooks:
+    - url: https://cover-bots.herokuapp.com/punisher_notifications
+
+experimental:
+  notify:
+    branches:
+      only:
+        - beta
+        - staging
