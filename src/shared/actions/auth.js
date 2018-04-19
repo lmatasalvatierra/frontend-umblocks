@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { store, history } from '../store/store'
+import { store, history } from 'client/store';
 
 function userLoggedIn(user) {
   return {
