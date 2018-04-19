@@ -1,4 +1,0 @@
-
-export const CERTIFICATE_SUBMIT = 'CERTIFICATE_SUBMIT';
-
-export const POLICY_SUBMIT = 'POLICY_SUBMIT';

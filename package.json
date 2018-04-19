@@ -1,27 +1,172 @@
 {
   "name": "frontend-umblocks",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "Umblocks frontend",
+  "scripts": {
+    "eject": "react-scripts eject",
+    "start": "yarn start:service",
+    "build": "yarn build:client && yarn build:service",
+    "gulp:dist": "node_modules/.bin/gulp dist",
+    "start:dev": "(yarn build:service && yarn start:service:dev) & yarn watch:client & yarn watch:service",
+    "build:client": "yarn gulp:dist && node ./scripts/build.js",
+    "watch:client": "yarn gulp:dist && node --preserve-symlinks ./scripts/start.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "start:service": "node ./build/service/index.js",
+    "start:service:dev": "nodemon ./build/service/index.js",
+    "watch:service": "NODE_ENV=development babel --watch ./src/service -d ./build/service",
+    "build:service": "NODE_ENV=production babel ./src/service -d ./build/service",
+    "linter": "eslint .",
+    "heroku-prebuild": "node ./scripts/set-npmrc.js",
+    "heroku-postbuild": "yarn build"
+  },
   "dependencies": {
     "antd": "^3.4.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "async-retry": "^1.1.3",
+    "autoprefixer": "7.1.0",
+    "aws-sdk": "^2.88.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "20.0.3",
+    "babel-loader": "7.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react-app": "^3.0.0",
+    "babel-runtime": "6.23.0",
+    "bunyan": "^1.8.10",
+    "case-sensitive-paths-webpack-plugin": "1.1.4",
+    "classnames": "^2.2.5",
+    "co-request": "^1.0.0",
+    "css-loader": "0.28.1",
+    "csv-parse": "^1.2.1",
+    "del": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "extract-text-webpack-plugin": "2.1.0",
+    "file-loader": "0.11.1",
+    "formsy-react": "^0.19.5",
+    "fs-extra": "3.0.1",
+    "gulp": "^3.9.1",
+    "history": "^4.6.3",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "2.28.0",
+    "include-media": "^1.4.9",
+    "kcors": "2",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-generic-session": "^2.0.0",
+    "koa-passport": "^3.0.0",
+    "koa-redis": "^3.0.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^3.0.0",
+    "koa-xml-body": "^2.0.0",
+    "lodash": "^4.17.4",
+    "merge": "^1.2.0",
+    "merge-stream": "^1.0.1",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.6",
+    "mongoose-sequence": "^4.0.0",
+    "newrelic": "^1.40.0",
+    "node-sass-chokidar": "^0.0.3",
+    "nodemon": "^1.11.0",
+    "normalize.css": "^7.0.0",
+    "passport-auth0": "^0.6.0",
+    "postcss-flexbugs-fixes": "3.0.0",
+    "postcss-loader": "2.0.5",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dev-utils": "^3.0.0",
+    "react-dom": "^15.6.1",
     "react-icons": "^2.2.7",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.1.2",
-    "react-router-dom": "^4.1.2",
-    "react-router-redux": "next",
-    "react-scripts": "1.1.1",
-    "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "next",
+    "react-test-renderer": "^15.6.1",
     "redux-thunk": "^2.2.0",
+    "redis": "^2.7.1",
+    "redux": "^3.7.1",
+    "reselect": "^3.0.1",
+    "retry": "^0.10.1",
+    "rollbar": "^2.1.0",
+    "sass-loader": "^6.0.6",
+    "smoothscroll": "^0.3.0",
+    "style-loader": "0.17.0",
+    "sw-precache-webpack-plugin": "0.9.1",
     "truffle-contract": "^3.0.0",
+    "url-loader": "0.5.8",
+    "url-search-params": "^0.10.0",
+    "velocity-react": "^1.3.3",
+    "webpack": "2.6.1",
+    "webpack-manifest-plugin": "1.1.0",
     "web3": "^1.0.0-beta.34"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "chalk": "1.1.3",
+    "enzyme": "^2.9.1",
+    "eslint": "4.5.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-react-app": "^1.0.4",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-flowtype": "2.35.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-react": "7.3.0",
+    "jest": "20.0.4",
+    "object-assign": "4.1.1",
+    "prettier": "^1.6.1",
+    "promise": "7.1.1",
+    "react-error-overlay": "^1.0.7",
+    "react-scripts": "^1.0.7",
+    "webpack-dev-server": "2.4.5",
+    "whatwg-fetch": "2.0.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "testPathIgnorePatterns": [
+      "src/client/"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    },
+    "modulePaths": [
+      "src"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "http://localhost:3203",
+  "engines": {
+    "node": "8.x",
+    "npm": "4.x"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "react-app"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "react-app"
+      ]
+    }
+  }
+}
