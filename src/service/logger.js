@@ -8,7 +8,7 @@ const streams = [
 ];
 
 const logger = bunyan.createLogger({
-  name: 'payments-frontend-dev',
+  name: 'umblocks-frontend',
   streams,
 });
 

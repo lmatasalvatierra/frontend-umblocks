@@ -6,7 +6,7 @@ import Routes from 'shared/routes';
 import { setUpServerClient } from 'shared/util';
 import './App.css';
 
-setUpServerClient();
+//setUpServerClient();
 
 class App extends Component {
   render() {

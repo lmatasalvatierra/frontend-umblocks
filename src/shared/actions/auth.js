@@ -1,5 +1,11 @@
 import Web3 from 'web3';
 import { store, history } from 'client/store';
+import request from 'axios';
+import UrlConstants from '../constant/url-constants';
+
+const axios = require('axios')
+
+const API_URL = UrlConstants(process.env.API_BASE_URL).TEST;
 
 function userLoggedIn(user) {
   return {
@@ -9,6 +15,15 @@ function userLoggedIn(user) {
 }
 
 export function loginUser(username, password) {
+  // axios.post(API_URL, {
+  //   firstName: username,
+  //   lastName: password
+  // }).then(function (response) {
+  //   console.log(response);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
   const manager = store.getState().web3.managerInstance;
   return function(dispatch) {
     manager.deployed().then(instance => {
