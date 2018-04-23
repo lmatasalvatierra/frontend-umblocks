@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
-import { loginUser } from '../../actions/auth';
+import auth from '../../actions/auth';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmit: (username, password) => dispatch(loginUser(username, password)),
+    onSubmit: (username, password) => dispatch(auth(username, password)),
   };
 };
 
