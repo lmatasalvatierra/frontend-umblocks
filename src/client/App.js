@@ -3,10 +3,7 @@ import { Provider } from 'react-redux';
 import { store, history } from 'client/store';
 import { ConnectedRouter } from 'react-router-redux';
 import Routes from 'shared/routes';
-import { setUpServerClient } from 'shared/util';
 import './App.css';
-
-setUpServerClient();
 
 class App extends Component {
   render() {
