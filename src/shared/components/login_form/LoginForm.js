@@ -6,6 +6,7 @@ import auth from '../../actions/auth';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
+const web3 = require('web3');
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -22,7 +23,10 @@ class LoginForm extends Component {
         return false;
       }
       const values = this.props.form.getFieldsValue();
-      this.props.onSubmit(values.userName, values.password);
+      this.props.onSubmit(
+        values.userName,
+        web3.utils.keccak256(values.password),
+      );
     });
   };
 

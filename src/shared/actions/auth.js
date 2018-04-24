@@ -1,4 +1,8 @@
 import { history } from 'client/store';
+import request from 'axios';
+import UrlConstants from '../constant/url-constants';
+
+const API_URL = UrlConstants(process.env.API_BASE_URL).LOGIN;
 
 function userLoggedIn(user) {
   return {
@@ -8,40 +12,10 @@ function userLoggedIn(user) {
 }
 
 export default function loginUser(username, password) {
-  return function(dispatch){
-    switch (0) {
-      case 0:
-        dispatch(
-          userLoggedIn({
-            username,
-            is_authenticated: true,
-            user_type: 'owner',
-          }),
-        );
-        history.push('/owner');
-        break;
-      case 1:
-        dispatch(
-          userLoggedIn({
-            username,
-            is_authenticated: true,
-            user_type: 'carrier',
-          }),
-        );
-        history.push('/carrier');
-        break;
-      case 2:
-        dispatch(
-          userLoggedIn({
-            username,
-            is_authenticated: true,
-            user_type: 'broker',
-          }),
-        );
-        history.push('/broker');
-        break;
-      default:
-        break;
-    }
-  }
+  return async function(dispatch){
+    const result = await request.post(API_URL, { username, password });
+    console.log(result.data)
+    dispatch(userLoggedIn(result.data));
+    history.push('/' + result.data.user_type)
+  };
 }
