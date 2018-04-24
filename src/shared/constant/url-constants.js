@@ -6,8 +6,9 @@
 export default baseAPIUrl => {
   const URLConstants = {};
 
-  URLConstants.BASE = baseAPIUrl || 'http://localhost:3409';
-  URLConstants.TOOLTIP_PATH = `${URLConstants.BASE}/api/v1/tooltip`;
+  URLConstants.BASE = baseAPIUrl || 'http://localhost:4308';
+  URLConstants.TEST = `${URLConstants.BASE}/api/test`;
+  URLConstants.LOGIN = `${URLConstants.BASE}/api/v1/login`;
 
   return URLConstants;
 };
