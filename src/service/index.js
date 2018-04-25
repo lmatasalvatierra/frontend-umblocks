@@ -14,6 +14,7 @@ import Web3Provider from './service/web3-service';
 import ManagerProvider from './service/manager-service';
 import appRouter from './appRouter';
 import authRouter from './route/authRouter';
+import policyRouter from './route/policyRouter';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.context.manager = managerInstance;
 // Initialize routes
 app.use(appRouter.routes());
 app.use(authRouter.routes());
+app.use(policyRouter.routes());
 
 const port = 3408;
 app.listen(port, () => {
