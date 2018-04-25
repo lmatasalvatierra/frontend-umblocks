@@ -15,6 +15,7 @@ import ManagerProvider from './service/manager-service';
 import appRouter from './appRouter';
 import authRouter from './route/authRouter';
 import policyRouter from './route/policyRouter';
+import certificateRouter from './route/certificateRouter';
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.context.manager = managerInstance;
 app.use(appRouter.routes());
 app.use(authRouter.routes());
 app.use(policyRouter.routes());
+app.use(certificateRouter.routes());
 
 const port = 3408;
 app.listen(port, () => {
