@@ -18,7 +18,12 @@ const ManagerProvider = {
             );
           };
         }
-        managerContract.defaults({ from: process.env.ACCOUNT });
+        managerContract.defaults({
+          from: process.env.ACCOUNT,
+          gas: 20000000,
+          gasPrice: 0,
+        });
+        console.log(managerContract);
         this.manager = managerContract;
       } else {
         logger.debug('Web3 is not initialized.');
