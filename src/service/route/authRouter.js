@@ -10,12 +10,15 @@ authRouter.post('/api/v1/login', async ctx => {
       Web3.utils.asciiToHex(ctx.request.body.username),
       ctx.request.body.password
     );
-    switch (result.toNumber()) {
+    const type = result[1].toNumber();
+    const id = result[0].toNumber();
+    switch (type) {
       case 0:
         ctx.body = {
           is_authenticated: true,
           user_type: 'owner',
           username: ctx.request.body.username,
+          user_id: id,
         };
         break;
       case 1:
@@ -23,6 +26,7 @@ authRouter.post('/api/v1/login', async ctx => {
           is_authenticated: true,
           user_type: 'carrier',
           username: ctx.request.body.username,
+          user_id: id,
         };
         break;
       case 2:
@@ -30,12 +34,14 @@ authRouter.post('/api/v1/login', async ctx => {
           is_authenticated: true,
           user_type: 'broker',
           username: ctx.request.body.username,
+          user_id: id,
         };
         break;
       default:
         ctx.response.status = 403;
     }
   } catch (err) {
+    console.log(err);
     ctx.response.status = 403;
   }
 });
