@@ -4,7 +4,7 @@ import { Row, Col, Button, Table, Input, Divider } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreatePolicy from '../../components/create_policy/CreatePolicy';
-import { POLICY_SUBMIT } from '../../constant/ActionTypes';
+import { submittingPolicy } from '../../actions/carrier';
 
 const columns = [
   {
@@ -76,11 +76,10 @@ class CarrierIndex extends Component {
   };
 
   handleOk = policy => {
+    const { user_id } = this.props.data;
     this.setState({ loading: true });
-    this.props.storePolicy(policy);
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
+    this.props.storePolicy({...policy, user_id });
+    this.setState({ loading: false, visible: false });
   };
 
   handleCancel = () => {
@@ -127,11 +126,12 @@ class CarrierIndex extends Component {
 
 const mapStateToProps = state => ({
   ...state.carrier,
+  ...state.auth,
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    storePolicy: policy => dispatch({ type: POLICY_SUBMIT, payload: policy }),
+    storePolicy: policy => dispatch(submittingPolicy(policy)),
   };
 };
 
