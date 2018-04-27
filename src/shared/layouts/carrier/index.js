@@ -26,12 +26,6 @@ const columns = [
     className: 'table__column',
   },
   {
-    title: 'Owner',
-    dataIndex: 'owner',
-    key: 'owner',
-    className: 'table__column',
-  },
-  {
     title: 'Email',
     dataIndex: 'email',
     key: 'email',

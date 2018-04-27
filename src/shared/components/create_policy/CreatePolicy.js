@@ -40,13 +40,12 @@ class CreatePolicy extends React.Component {
     const { visible, loading } = this.props;
     const { getFieldDecorator } = this.props.form;
 
-    const nameProps = getFieldDecorator('name');
-    const emailProps = getFieldDecorator('email');
-    const effectiveProps = getFieldDecorator('effectiveDate');
-    const expirationProps = getFieldDecorator('expirationDate');
-    const insuranceProps = getFieldDecorator('insuranceType');
-    const limitsProps = getFieldDecorator('limits');
-    const aggregatedProps = getFieldDecorator('aggregatedLimits');
+    const emailProps = getFieldDecorator('ownerEmail', { rules: [{ required: true, message: "Required field" }], });
+    const effectiveProps = getFieldDecorator('effectiveDate', { rules: [{ required: true, message: "Required field" }], });
+    const expirationProps = getFieldDecorator('expirationDate', { rules: [{ required: true, message: "Required field" }], });
+    const insuranceProps = getFieldDecorator('insuranceType', { rules: [{ required: true, message: "Required field" }], });
+    const limitsProps = getFieldDecorator('limits', { rules: [{ required: true, message: "Required field" }], });
+    const aggregatedProps = getFieldDecorator('aggregatedLimits', { rules: [{ required: true, message: "Required field" }], });
 
     return (
       <div>
@@ -71,20 +70,17 @@ class CreatePolicy extends React.Component {
           ]}
         >
           <Form className="form" onSubmit={this.handleSubmit}>
-            <FormItem label="Name" style={{ marginBottom: 20 }}>
-              {nameProps(<Input size="large" placeholder="John Smith" />)}
-            </FormItem>
-            <FormItem label="Email" style={{ marginBottom: 20 }}>
+            <FormItem label="Owner's Email" style={{ marginBottom: 20 }}>
               {emailProps(<Input size="large" placeholder="john@cw.com" />)}
+            </FormItem>
+            <FormItem label="Insurance Type" style={{ marginBottom: 20 }}>
+              {insuranceProps(<Cascader size="large" options={options} />)}
             </FormItem>
             <FormItem label="Effective date" style={{ marginBottom: 20 }}>
               {effectiveProps(<DatePicker size="large" />)}
             </FormItem>
             <FormItem label="Expiration date" style={{ marginBottom: 20 }}>
               {expirationProps(<DatePicker size="large" />)}
-            </FormItem>
-            <FormItem label="Insurance Type" style={{ marginBottom: 20 }}>
-              {insuranceProps(<Cascader size="large" options={options} />)}
             </FormItem>
             <FormItem
               label="Limits per Occurrence"
