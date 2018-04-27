@@ -40,12 +40,24 @@ class CreatePolicy extends React.Component {
     const { visible, loading } = this.props;
     const { getFieldDecorator } = this.props.form;
 
-    const emailProps = getFieldDecorator('ownerEmail', { rules: [{ required: true, message: "Required field" }], });
-    const effectiveProps = getFieldDecorator('effectiveDate', { rules: [{ required: true, message: "Required field" }], });
-    const expirationProps = getFieldDecorator('expirationDate', { rules: [{ required: true, message: "Required field" }], });
-    const insuranceProps = getFieldDecorator('insuranceType', { rules: [{ required: true, message: "Required field" }], });
-    const limitsProps = getFieldDecorator('limits', { rules: [{ required: true, message: "Required field" }], });
-    const aggregatedProps = getFieldDecorator('aggregatedLimits', { rules: [{ required: true, message: "Required field" }], });
+    const emailProps = getFieldDecorator('ownerEmail', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const effectiveProps = getFieldDecorator('effectiveDate', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const expirationProps = getFieldDecorator('expirationDate', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const insuranceProps = getFieldDecorator('insuranceType', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const limitsProps = getFieldDecorator('limits', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const aggregatedProps = getFieldDecorator('aggregatedLimits', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
 
     return (
       <div>

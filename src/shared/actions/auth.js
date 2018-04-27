@@ -12,10 +12,9 @@ function userLoggedIn(user) {
 }
 
 export default function loginUser(username, password) {
-  return async function(dispatch){
+  return async function(dispatch) {
     const result = await request.post(API_URL, { username, password });
-    console.log(result.data)
     dispatch(userLoggedIn(result.data));
-    history.push('/' + result.data.user_type)
+    history.push(`/${result.data.user_type}`);
   };
 }

@@ -1,4 +1,5 @@
-import { Status } from '../constant/enum-constants'
+import { Status } from '../constant/enum-constants';
+
 const initialState = {
   policies_list: [
     {

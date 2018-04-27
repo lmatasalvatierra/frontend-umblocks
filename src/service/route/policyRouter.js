@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import logger from '../logger';
 
 const moment = require('moment');
+
 const policyRouter = new KoaRouter();
 
 policyRouter.get('/api/v1/policy/:id', async ctx => {
@@ -28,12 +29,18 @@ policyRouter.post('/api/v1/policy', async ctx => {
     );
     const policy = {
       owner_email: Web3.utils.hexToAscii(result.logs[0].args.ownerEmail),
-      effective_date: moment(result.logs[0].args.effectiveDate.toNumber(), 'X').format('DD/MM/YYYY'),
-      expiration_date: moment(result.logs[0].args.expirationDate.toNumber(), 'X').format('DD/MM/YYYY'),
+      effective_date: moment(
+        result.logs[0].args.effectiveDate.toNumber(),
+        'X',
+      ).format('DD/MM/YYYY'),
+      expiration_date: moment(
+        result.logs[0].args.expirationDate.toNumber(),
+        'X',
+      ).format('DD/MM/YYYY'),
       insurance_type: Web3.utils.hexToAscii(result.logs[0].args.insuranceType),
       status: result.logs[0].args.status.toNumber(),
       policy_number: result.logs[0].args.policyNumber.toNumber(),
-    }
+    };
     ctx.response.body = policy;
   } catch (err) {
     console.log(err);

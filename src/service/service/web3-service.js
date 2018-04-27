@@ -18,7 +18,7 @@ const Web3Provider = {
       }
     }
     return this.web3;
-  }
+  },
 };
 
 export default Web3Provider;

@@ -72,7 +72,7 @@ class CarrierIndex extends Component {
   handleOk = policy => {
     const { user_id } = this.props.data;
     this.setState({ loading: true });
-    this.props.storePolicy({...policy, user_id });
+    this.props.storePolicy({ ...policy, user_id });
     this.setState({ loading: false, visible: false });
   };
 

@@ -8,7 +8,7 @@ const ManagerProvider = {
   instance(web3Instance) {
     if (!this.manager) {
       if (typeof web3Instance !== 'undefined') {
-        let managerContract = contract(COIManagerContract);
+        const managerContract = contract(COIManagerContract);
         managerContract.setProvider(web3Instance.currentProvider);
         if (typeof managerContract.currentProvider.sendAsync !== 'function') {
           managerContract.currentProvider.sendAsync = function sendAsync() {
@@ -29,7 +29,7 @@ const ManagerProvider = {
       }
     }
     return this.manager;
-  }
+  },
 };
 
 export default ManagerProvider;

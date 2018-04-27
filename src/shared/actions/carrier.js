@@ -12,7 +12,7 @@ function policySubmit(policy) {
 }
 
 export function submittingPolicy(policy) {
-  return async function(dispatch){
+  return async function(dispatch) {
     const result = await request.post(API_URL, {
       aggregated_limits: policy.aggregatedLimits,
       effective_date: policy.effectiveDate.format('X'),
