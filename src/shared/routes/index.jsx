@@ -42,17 +42,17 @@ class Routes extends Component {
         <Route exact path="/" component={() => <Redirect to={'/login'} />} />
         <Route path="/login" component={Login} />
         <PrivateRoute
-          path="/owner"
+          path="/owner/:id"
           isAuthenticated={this.isOwner}
           component={OwnerIndex}
         />
         <PrivateRoute
-          path="/broker"
+          path="/broker/:id"
           isAuthenticated={this.isBroker}
           component={BrokerIndex}
         />
         <PrivateRoute
-          path="/carrier"
+          path="/carrier/:id"
           isAuthenticated={this.isCarrier}
           component={CarrierIndex}
         />
