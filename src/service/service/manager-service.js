@@ -23,7 +23,6 @@ const ManagerProvider = {
           gas: 20000000,
           gasPrice: 0,
         });
-        console.log(managerContract);
         this.manager = managerContract;
       } else {
         logger.debug('Web3 is not initialized.');

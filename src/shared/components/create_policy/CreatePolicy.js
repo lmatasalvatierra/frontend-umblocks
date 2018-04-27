@@ -92,20 +92,20 @@ class CreatePolicy extends React.Component {
             >
               {limitsProps(
                 <RadioGroup>
-                  <RadioButton value="a">$1M</RadioButton>
-                  <RadioButton value="b">$2M</RadioButton>
-                  <RadioButton value="c">$3M</RadioButton>
-                  <RadioButton value="d">$4M</RadioButton>
+                  <RadioButton value="1000000">$1M</RadioButton>
+                  <RadioButton value="2000000">$2M</RadioButton>
+                  <RadioButton value="3000000">$3M</RadioButton>
+                  <RadioButton value="4000000">$4M</RadioButton>
                 </RadioGroup>,
               )}
             </FormItem>
             <FormItem label="Aggregated Limits" style={{ marginBottom: 20 }}>
               {aggregatedProps(
                 <RadioGroup>
-                  <RadioButton value="a">$1M</RadioButton>
-                  <RadioButton value="b">$2M</RadioButton>
-                  <RadioButton value="c">$3M</RadioButton>
-                  <RadioButton value="d">$4M</RadioButton>
+                  <RadioButton value="1000000">$1M</RadioButton>
+                  <RadioButton value="2000000">$2M</RadioButton>
+                  <RadioButton value="3000000">$3M</RadioButton>
+                  <RadioButton value="4000000">$4M</RadioButton>
                 </RadioGroup>,
               )}
             </FormItem>
