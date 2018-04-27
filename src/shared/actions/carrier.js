@@ -16,11 +16,10 @@ export function submittingPolicy(policy) {
     const result = await request.post(API_URL, {
       aggregated_limits: policy.aggregatedLimits,
       effective_date: policy.effectiveDate.format('X'),
-      email: policy.email,
+      owner_email: policy.ownerEmail,
       expiration_date: policy.expirationDate.format('X'),
       insurance_type: policy.insuranceType[0],
       limits_per_occurrence: policy.limits,
-      name: policy.name,
       user_id: policy.user_id,
     });
     dispatch(policySubmit(result));
