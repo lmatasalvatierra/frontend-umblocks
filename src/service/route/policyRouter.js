@@ -20,13 +20,14 @@ policyRouter.post('/api/v1/policy', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
     const result = await manager.createPolicy(
-      1,
+      Web3.utils.asciiToHex(ctx.request.body.owner_email),
       Web3.utils.asciiToHex(ctx.request.body.insurance_type),
       parseInt(ctx.request.body.effective_date, 10),
       parseInt(ctx.request.body.expiration_date, 10),
       parseInt(ctx.request.body.user_id, 10)
     );
     const policy = {
+      owner_email: Web3.utils.hexToAscii(result.logs[0].args.ownerEmail),
       effective_date: moment(result.logs[0].args.effectiveDate.toNumber(), 'X').format('DD/MM/YYYY'),
       expiration_date: moment(result.logs[0].args.expirationDate.toNumber(), 'X').format('DD/MM/YYYY'),
       insurance_type: Web3.utils.hexToAscii(result.logs[0].args.insuranceType),
