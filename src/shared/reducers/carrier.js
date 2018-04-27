@@ -1,3 +1,4 @@
+import { Status } from '../constant/enum-constants'
 const initialState = {
   policies_list: [
     {
@@ -42,13 +43,12 @@ export default (state = initialState, action) => {
           ...state.policies_list,
           {
             key: state.policies_list.length + 1,
-            status: 'Green',
-            insurance_type: action.payload.insuranceType,
-            policy_number: Math.floor(Math.random() * 10000000),
-            owner: action.payload.name,
-            email: action.payload.email,
-            effective_date: action.payload.effectiveDate.format('DD/MM/YYYY'),
-            expiration_date: action.payload.expirationDate.format('DD/MM/YYYY'),
+            status: Status[action.payload.data.status],
+            insurance_type: action.payload.data.insurance_type,
+            policy_number: action.payload.data.policy_number,
+            email: action.payload.data.owner_email,
+            effective_date: action.payload.data.effective_date,
+            expiration_date: action.payload.data.expiration_date,
           },
         ],
       };
