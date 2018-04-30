@@ -4,13 +4,30 @@ import logger from '../logger';
 
 const moment = require('moment');
 
+const Status = ['Active', 'Cancelled', 'Expired'];
+
 const policyRouter = new KoaRouter();
 
 policyRouter.get('/api/v1/policy/:id', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
     const result = await manager.getPolicy(ctx.params.id);
-    ctx.response.body = JSON.parse(result);
+    const json = JSON.parse(result);
+    const policy = {
+      policy_number: json.policy_number,
+      insurance_type: json.insurance_type,
+      effective_date: moment(parseInt(json.effective_date, 10), 'X').format(
+        'DD/MM/YYYY',
+      ),
+      expiration_date: moment(parseInt(json.expiration_date, 10), 'X').format(
+        'DD/MM/YYYY',
+      ),
+      status: Status[json.status],
+      owner_email: json.user_email,
+      owner_name: json.owner_name,
+      owner_address: json.address,
+    };
+    ctx.response.body = policy;
   } catch (err) {
     logger.debug(err);
     ctx.throw('Generic Error', 500);
@@ -38,7 +55,7 @@ policyRouter.post('/api/v1/policy', async ctx => {
         'X',
       ).format('DD/MM/YYYY'),
       insurance_type: Web3.utils.hexToAscii(result.logs[0].args.insuranceType),
-      status: result.logs[0].args.status.toNumber(),
+      status: Status[result.logs[0].args.status],
       policy_number: result.logs[0].args.policyNumber.toNumber(),
     };
     ctx.response.body = policy;
