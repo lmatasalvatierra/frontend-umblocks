@@ -1,38 +1,6 @@
-import { Status } from '../constant/enum-constants';
-
 const initialState = {
-  policies_list: [
-    {
-      key: '1',
-      status: 'Green',
-      insurance_type: 'GL',
-      policy_number: '#4323243',
-      owner: 'Peter Hasting',
-      email: 'jim@cw.com',
-      effective_date: '4/11/2018',
-      expiration_date: '4/11/2019',
-    },
-    {
-      key: '2',
-      status: 'Green',
-      insurance_type: 'GL',
-      policy_number: '#4323243',
-      owner: 'Peter Hasting',
-      email: 'jim@cw.com',
-      effective_date: '4/11/2018',
-      expiration_date: '4/11/2019',
-    },
-    {
-      key: '3',
-      status: 'Green',
-      insurance_type: 'GL',
-      policy_number: '#4323243',
-      owner: 'Peter Hasting',
-      email: 'jim@cw.com',
-      effective_date: '4/11/2018',
-      expiration_date: '4/11/2019',
-    },
-  ],
+  policies_list: [],
+  view_policy: null,
 };
 
 export default (state = initialState, action) => {
@@ -44,12 +12,58 @@ export default (state = initialState, action) => {
           ...state.policies_list,
           {
             key: state.policies_list.length + 1,
-            status: Status[action.payload.data.status],
+            status: action.payload.data.status,
             insurance_type: action.payload.data.insurance_type,
             policy_number: action.payload.data.policy_number,
             email: action.payload.data.owner_email,
             effective_date: action.payload.data.effective_date,
             expiration_date: action.payload.data.expiration_date,
+          },
+        ],
+      };
+    case 'POLICY_VIEW':
+      return {
+        ...state,
+        view_policy: [
+          {
+            key: 'Policy Number',
+            value: action.payload.data.policy_number,
+          },
+          {
+            key: "Owner's Email",
+            value: action.payload.data.owner_email,
+          },
+          {
+            key: "Owner's Name",
+            value: action.payload.data.owner_name,
+          },
+          {
+            key: "Owner's Address",
+            value: action.payload.data.owner_address,
+          },
+          {
+            key: 'Status',
+            value: action.payload.data.status,
+          },
+          {
+            key: 'Insurance Type',
+            value: action.payload.data.insurance_type,
+          },
+          {
+            key: 'Effective Date',
+            value: action.payload.data.effective_date,
+          },
+          {
+            key: 'Expiration Date',
+            value: action.payload.data.expiration_date,
+          },
+          {
+            key: 'Limits per occurrence',
+            value: '$1,000,000',
+          },
+          {
+            key: 'Aggregated Limits',
+            value: '$4,000,000',
           },
         ],
       };
