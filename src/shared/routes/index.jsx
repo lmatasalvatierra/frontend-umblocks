@@ -8,6 +8,7 @@ import Login from '../layouts/login/Login';
 import OwnerIndex from '../layouts/owner/index';
 import BrokerIndex from '../layouts/broker/index';
 import CarrierIndex from '../layouts/carrier/index';
+import PolicyView from '../layouts/policy/Policy';
 
 class Routes extends Component {
   constructor(props) {
@@ -42,17 +43,22 @@ class Routes extends Component {
         <Route exact path="/" component={() => <Redirect to={'/login'} />} />
         <Route path="/login" component={Login} />
         <PrivateRoute
-          path="/owner"
+          path="/owner/:id"
           isAuthenticated={this.isOwner}
           component={OwnerIndex}
         />
         <PrivateRoute
-          path="/broker"
+          path="/broker/:id"
           isAuthenticated={this.isBroker}
           component={BrokerIndex}
         />
         <PrivateRoute
-          path="/carrier"
+          path="/carrier/:carrierid/policy/:policyid"
+          isAuthenticated={this.isCarrier}
+          component={PolicyView}
+        />
+        <PrivateRoute
+          path="/carrier/:id"
           isAuthenticated={this.isCarrier}
           component={CarrierIndex}
         />
