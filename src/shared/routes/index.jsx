@@ -8,6 +8,7 @@ import Login from '../layouts/login/Login';
 import OwnerIndex from '../layouts/owner/index';
 import BrokerIndex from '../layouts/broker/index';
 import CarrierIndex from '../layouts/carrier/index';
+import PolicyView from '../layouts/policy/Policy';
 
 class Routes extends Component {
   constructor(props) {
@@ -50,6 +51,11 @@ class Routes extends Component {
           path="/broker/:id"
           isAuthenticated={this.isBroker}
           component={BrokerIndex}
+        />
+        <PrivateRoute
+          path="/carrier/:carrierid/policy/:policyid"
+          isAuthenticated={this.isCarrier}
+          component={PolicyView}
         />
         <PrivateRoute
           path="/carrier/:id"
