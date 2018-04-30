@@ -1,3 +1,5 @@
 export const CERTIFICATE_SUBMIT = 'CERTIFICATE_SUBMIT';
 
 export const POLICY_SUBMIT = 'POLICY_SUBMIT';
+
+export const POLICY_VIEW = 'POLICY_VIEW';
