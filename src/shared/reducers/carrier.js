@@ -5,6 +5,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'POLICIES_SUMMARIES':
+      return {
+        ...state,
+        policies_list: [...state.policies_list, ...action.payload],
+      };
     case 'POLICY_SUBMIT':
       return {
         ...state,
