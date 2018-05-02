@@ -1,9 +1,10 @@
 import request from 'axios';
 import { history } from 'client/store';
 import UrlConstants from '../constant/url-constants';
-import { POLICY_SUBMIT, POLICY_VIEW } from '../constant/ActionTypes';
+import { POLICY_SUBMIT, POLICY_VIEW, POLICIES_SUMMARIES } from '../constant/ActionTypes';
 
 const API_URL = UrlConstants(process.env.API_BASE_URL).POLICY;
+const API_CARRIER = UrlConstants(process.env.API_BASE_URL).CARRIER;
 
 function policySubmit(policy) {
   return {
@@ -16,6 +17,13 @@ function policyView(policy) {
   return {
     type: POLICY_VIEW,
     payload: policy,
+  };
+}
+
+function policiesSummary(policies) {
+  return {
+    type: POLICIES_SUMMARIES,
+    payload: policies,
   };
 }
 
@@ -39,5 +47,18 @@ export function submittingPolicy(policy) {
       user_id: policy.user_id,
     });
     dispatch(policySubmit(result));
+  };
+}
+
+export function gettingPoliciesSummaries(userid) {
+  return async function damsmsa(dispatch) {
+    const response = await request.get(`${API_CARRIER}/${userid}/policies`);
+    const policies = response.data.map((policy, index) => {
+      return {
+        ...policy,
+        key: index + 1,
+      };
+    });
+    dispatch(policiesSummary(policies));
   };
 }
