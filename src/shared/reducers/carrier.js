@@ -5,7 +5,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'POLICIES_SUMMARIES':
+    case 'POLICIES_SUMMARY':
       return {
         ...state,
         policies_list: [...state.policies_list, ...action.payload],
