@@ -4,7 +4,11 @@ import { Row, Col, Button, Table, Input, Divider } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreatePolicy from '../../components/create_policy/CreatePolicy';
-import { submittingPolicy, viewingPolicy } from '../../actions/carrier';
+import {
+  submittingPolicy,
+  viewingPolicy,
+  gettingPoliciesSummaries,
+} from '../../actions/carrier';
 
 class CarrierIndex extends Component {
   constructor(props) {
@@ -74,6 +78,10 @@ class CarrierIndex extends Component {
     visible: false,
   };
 
+  componentDidMount() {
+    this.props.gettingPolicies(this.props.data.user_id);
+  }
+
   handleViewDetail = (policyid, userid) => {
     this.props.viewPolicy(policyid, userid);
   }
@@ -142,6 +150,7 @@ const mapDispatchToProps = dispatch => {
   return {
     storePolicy: policy => dispatch(submittingPolicy(policy)),
     viewPolicy: (policyid, userid) => dispatch(viewingPolicy(policyid, userid)),
+    gettingPolicies: userid => dispatch(gettingPoliciesSummaries(userid)),
   };
 };
 
