@@ -33,10 +33,10 @@ export default (state = initialState, action) => {
           ...state.certificates_list,
           {
             key: state.certificates_list.length + 1,
-            owner: action.payload.name,
-            email: action.payload.email,
-            certificate_number: action.payload.certificateNumber,
-            effective_date: action.payload.effectiveDate.format('DD/MM/YYYY'),
+            owner: action.payload.data.owner_name,
+            email: action.payload.data.owner_email,
+            certificate_number: action.payload.data.certificate_number,
+            effective_date: action.payload.data.effective_date,
           },
         ],
       };

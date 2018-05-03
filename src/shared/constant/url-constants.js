@@ -11,6 +11,7 @@ export default baseAPIUrl => {
   URLConstants.LOGIN = `${URLConstants.BASE}/api/v1/login`;
   URLConstants.POLICY = `${URLConstants.BASE}/api/v1/policy`;
   URLConstants.CARRIER = `${URLConstants.BASE}/api/v1/carrier`;
+  URLConstants.CERTIFICATE = `${URLConstants.BASE}/api/v1/certificate`;
 
   return URLConstants;
 };
