@@ -4,7 +4,7 @@ import { Row, Col, Button, Table, Input } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreateCertificate from '../../components/create_certificate/CreateCertificate';
-import { CERTIFICATE_SUBMIT } from '../../constant/ActionTypes';
+import { submittingCertificate } from '../../actions/broker';
 
 const columns = [
   {
@@ -56,11 +56,10 @@ class BrokerIndex extends Component {
   };
 
   handleOk = certificate => {
+    const { email, policies, effectiveDate } = certificate
     this.setState({ loading: true });
-    this.props.storeCertificate(certificate);
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
+    this.props.storeCertificate({ email, policies, effectiveDate });
+    this.setState({ loading: false, visible: false });
   };
 
   handleCancel = () => {
@@ -113,7 +112,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     storeCertificate: certificate =>
-      dispatch({ type: CERTIFICATE_SUBMIT, payload: certificate }),
+      dispatch(submittingCertificate(certificate)),
   };
 };
 
