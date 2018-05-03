@@ -7,7 +7,7 @@ import CreatePolicy from '../../components/create_policy/CreatePolicy';
 import {
   submittingPolicy,
   viewingPolicy,
-  gettingPoliciesSummaries,
+  gettingPoliciesSummary,
 } from '../../actions/carrier';
 
 class CarrierIndex extends Component {
@@ -150,7 +150,7 @@ const mapDispatchToProps = dispatch => {
   return {
     storePolicy: policy => dispatch(submittingPolicy(policy)),
     viewPolicy: (policyid, userid) => dispatch(viewingPolicy(policyid, userid)),
-    gettingPolicies: userid => dispatch(gettingPoliciesSummaries(userid)),
+    gettingPolicies: userid => dispatch(gettingPoliciesSummary(userid)),
   };
 };
 
