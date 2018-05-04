@@ -1,9 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Modal, Button, Form, Input, DatePicker } from 'antd';
+import { Modal, Button, Form, Input, DatePicker, Icon } from 'antd';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
+let keyId = 1;
 
 class CreateCertificate extends React.Component {
   handleSubmit = e => {
@@ -19,14 +20,57 @@ class CreateCertificate extends React.Component {
     this.props.form.resetFields();
   };
 
+  remove = k => {
+    const { form } = this.props;
+    const keys = form.getFieldValue('keys');
+    if (keys.length === 1) {
+      return;
+    }
+    form.setFieldsValue({
+      keys: keys.filter(key => key !== k),
+    });
+  };
+
+  add = () => {
+    const { form } = this.props;
+    const keys = form.getFieldValue('keys');
+    const nextKeys = keys.concat(keyId);
+    keyId++;
+    form.setFieldsValue({
+      keys: nextKeys,
+    });
+  };
+
   render() {
     const { visible, loading } = this.props;
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator, getFieldValue } = this.props.form;
 
-    const nameProps = getFieldDecorator('name');
-    const emailProps = getFieldDecorator('email');
-    const effectiveProps = getFieldDecorator('effectiveDate');
-    const certificateProps = getFieldDecorator('certificateNumber');
+    const emailProps = getFieldDecorator('email', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+    const effectiveProps = getFieldDecorator('effectiveDate', {
+      rules: [{ required: true, message: 'Required field' }],
+    });
+
+    getFieldDecorator('keys', { initialValue: [0] });
+    const keys = getFieldValue('keys');
+    const formItems = keys.map((k, index) => {
+      return (
+        <FormItem label={index === 0 ? 'Policies' : ''} required key={k}>
+          {getFieldDecorator(`policies[${k}]`, {
+            rules: [{ required: true, message: 'Required field' }],
+          })(<Input size="large" placeholder="Policy Number" style={{ width: "90%", marginRight: "8px"}}/>)}
+          {keys.length > 1 ? (
+            <Icon
+              style={{fontSize: 22}}
+              type="minus-circle-o"
+              disabled={keys.length === 1}
+              onClick={() => this.remove(k)}
+            />
+          ) : null}
+        </FormItem>
+      );
+    });
 
     return (
       <div>
@@ -37,10 +81,11 @@ class CreateCertificate extends React.Component {
           onOk={this.props.handleOk}
           onCancel={this.props.handleCancel}
           footer={[
-            <Button onClick={this.props.handleCancel} key="back">
+            <Button size="large" onClick={this.props.handleCancel} key="back">
               Return
             </Button>,
             <Button
+              size="large"
               key="submit"
               type="primary"
               loading={loading}
@@ -51,23 +96,16 @@ class CreateCertificate extends React.Component {
           ]}
         >
           <Form className="form" onSubmit={this.handleSubmit}>
-            <FormItem label="Name" style={{ marginBottom: 20 }}>
-              {nameProps(<Input size="large" placeholder="John Smith" />)}
-            </FormItem>
             <FormItem label="Email" style={{ marginBottom: 20 }}>
               {emailProps(<Input size="large" placeholder="john@cw.com" />)}
             </FormItem>
             <FormItem label="Effective Date" style={{ marginBottom: 20 }}>
               {effectiveProps(<DatePicker size="large" />)}
             </FormItem>
-            <FormItem label="Certificate Number" style={{ marginBottom: 20 }}>
-              {certificateProps(
-                <Input size="large" placeholder="#312321432" />,
-              )}
-            </FormItem>
+            {formItems}
             <FormItem>
-              <Button size="large" type="primary">
-                Add Policy
+              <Button type="primary" onClick={this.add}>
+                <Icon type="plus" /> Policy
               </Button>
             </FormItem>
           </Form>
