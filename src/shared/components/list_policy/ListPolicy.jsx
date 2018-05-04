@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
-import { connect } from 'react-redux';
 
 const columns = [
   {
     title: 'key',
     dataIndex: 'key',
     key: 'key',
+    width: '50%',
   },
   {
     title: 'value',
     dataIndex: 'value',
     key: 'value',
+    width: '50%',
   },
 ];
 
@@ -23,7 +24,7 @@ class ListPolicy extends Component {
       <Table
         className="table"
         columns={columns}
-        dataSource={view_policy}
+        dataSource={this.props.policy}
         showHeader={false}
         pagination={false}
         rowClassName={(record, i) =>
@@ -34,8 +35,4 @@ class ListPolicy extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state.policies,
-});
-
-export default connect(mapStateToProps, null)(ListPolicy);
+export default ListPolicy;
