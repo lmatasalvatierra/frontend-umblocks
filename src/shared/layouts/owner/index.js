@@ -56,12 +56,14 @@ class OwnerIndex extends Component {
             <h2 className="table-header__title">Summary</h2>
           </Col>
         </Row>
-        <Table
-          className="table"
-          columns={columns}
-          dataSource={certificate_list}
-          pagination={false}
-        />
+        <div className="layout__background">
+          <Table
+            className="table"
+            columns={columns}
+            dataSource={certificate_list}
+            pagination={false}
+          />
+        </div>
       </MainLayout>
     );
   }

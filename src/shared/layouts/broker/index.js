@@ -88,18 +88,20 @@ class BrokerIndex extends Component {
         <div className="table-menu__search-bar">
           <Input placeholder="Search Certificate by email" size="large" />
         </div>
-        <Table
-          className="table"
-          columns={columns}
-          dataSource={this.props.certificates_list}
-          pagination={false}
-        />
-        <CreateCertificate
-          handleOk={this.handleOk}
-          handleCancel={this.handleCancel}
-          visible={this.state.visible}
-          loading={this.state.loading}
-        />
+        <div className="layout__background">
+          <Table
+            className="table"
+            columns={this.columns}
+            dataSource={this.props.certificates_list}
+            pagination={false}
+          />
+          <CreateCertificate
+            handleOk={this.handleOk}
+            handleCancel={this.handleCancel}
+            visible={this.state.visible}
+            loading={this.state.loading}
+          />
+        </div>
       </MainLayout>
     );
   }

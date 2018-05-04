@@ -32,7 +32,7 @@ class MainLayout extends Component {
           </Header>
           <Content
             className="main-container"
-            style={{ backgroundColor: '#ffffff' }}
+            style={{ backgroundColor: 'unset' }}
           >
             {this.props.children}
           </Content>
