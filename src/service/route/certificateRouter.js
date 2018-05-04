@@ -6,6 +6,8 @@ const moment = require('moment');
 
 const certificateRouter = new KoaRouter();
 
+const STATUS = ['Active', 'Cancelled', 'Expired'];
+
 certificateRouter.post('/api/v1/certificate', async ctx => {
   try {
     const policies = ctx.request.body.policies.map(policy => +policy);
@@ -27,6 +29,39 @@ certificateRouter.post('/api/v1/certificate', async ctx => {
     ctx.response.body = certificate;
   } catch (err) {
     console.log(err);
+    ctx.throw('Generic Error', 500);
+  }
+});
+
+certificateRouter.get('/api/v1/certificate/:id', async ctx => {
+  try {
+    const manager = await ctx.manager.deployed();
+    const result = await manager.getCoi(ctx.params.id);
+    const jsonPolicies = JSON.parse(result[4]);
+    const policies = jsonPolicies.map(policy => {
+      return {
+        policy_number: policy.policy_number,
+        insurance_type: policy.insurance_type,
+        effective_date: moment(parseInt(policy.effective_date, 10), 'X').format(
+          'DD/MM/YYYY',
+        ),
+        expiration_date: moment(
+          parseInt(policy.expiration_date, 10),
+          'X',
+        ).format('DD/MM/YYYY'),
+        status: STATUS[policy.status],
+      };
+    });
+    const certificate = {
+      certificate_number: result[0].toNumber(),
+      owner_email: Web3.utils.hexToAscii(result[1]),
+      owner_name: Web3.utils.hexToAscii(result[2]),
+      effective_date: moment(result[3].toNumber(), 'X').format('DD/MM/YYYY'),
+      policies,
+    };
+    ctx.response.body = certificate;
+  } catch (err) {
+    logger.debug(err);
     ctx.throw('Generic Error', 500);
   }
 });
