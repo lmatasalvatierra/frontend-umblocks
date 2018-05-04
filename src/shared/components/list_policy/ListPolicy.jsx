@@ -35,7 +35,7 @@ class ListPolicy extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.carrier,
+  ...state.policies,
 });
 
 export default connect(mapStateToProps, null)(ListPolicy);

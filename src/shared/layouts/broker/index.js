@@ -4,7 +4,7 @@ import { Row, Col, Button, Table, Input } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreateCertificate from '../../components/create_certificate/CreateCertificate';
-import { submittingCertificate } from '../../actions/broker';
+import { submittingCertificate } from '../../actions/certificates';
 
 const columns = [
   {
@@ -106,7 +106,7 @@ class BrokerIndex extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.broker,
+  ...state.certificates,
 });
 
 const mapDispatchToProps = dispatch => {

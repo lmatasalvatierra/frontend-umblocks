@@ -8,7 +8,7 @@ import {
   submittingPolicy,
   viewingPolicy,
   gettingPoliciesSummary,
-} from '../../actions/carrier';
+} from '../../actions/policies';
 
 class CarrierIndex extends Component {
   constructor(props) {
@@ -142,7 +142,7 @@ class CarrierIndex extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.carrier,
+  ...state.policies,
   ...state.auth,
 });
 
