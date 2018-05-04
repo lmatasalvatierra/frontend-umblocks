@@ -2,15 +2,15 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import auth from './auth';
 import owner from './owner';
-import broker from './broker';
-import carrier from './carrier';
+import certificates from './certificates';
+import policies from './policies';
 
 const Reducer = combineReducers({
   routing: routerReducer,
   auth,
   owner,
-  broker,
-  carrier,
+  certificates,
+  policies,
 });
 
 export default Reducer;

@@ -71,6 +71,13 @@
   display: block;
 }
 
+.layout__background {
+  background-color: #ffffff;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  min-height: 65vh;
+}
+
 .header {
   margin-left: 6vw;
   margin-right: 6vw;

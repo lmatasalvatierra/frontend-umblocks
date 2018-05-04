@@ -17,22 +17,21 @@ const columns = [
   },
 ];
 
-class ListPolicy extends Component {
+class ListCertificate extends Component {
   render() {
-    const { view_policy } = this.props;
     return (
       <Table
         className="table"
         columns={columns}
-        dataSource={this.props.policy}
+        dataSource={this.props.certificate}
         showHeader={false}
         pagination={false}
         rowClassName={(record, i) =>
-          record.key === 'Policy Number' ? 'table__row--header' : null}
+          record.key === 'Certificate Number' ? 'table__row--header' : null}
         rowKey={record => record.key}
       />
     );
   }
 }
 
-export default ListPolicy;
+export default ListCertificate;
