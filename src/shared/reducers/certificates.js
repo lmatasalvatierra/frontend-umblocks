@@ -1,27 +1,5 @@
 const initialState = {
-  certificates_list: [
-    {
-      key: '1',
-      owner: 'John Brown',
-      email: 'peter@cw.com',
-      certificate_number: '#4323243',
-      effective_date: '4/11/2018',
-    },
-    {
-      key: '2',
-      owner: 'Jim Green',
-      email: 'jim@cw.com',
-      certificate_number: '#4334253',
-      effective_date: '4/11/2018',
-    },
-    {
-      key: '3',
-      owner: 'Joe Black',
-      email: 'joe@cw.com',
-      certificate_number: '#4327856',
-      effective_date: '4/11/2018',
-    },
-  ],
+  certificates_list: [],
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +17,51 @@ export default (state = initialState, action) => {
             effective_date: action.payload.data.effective_date,
           },
         ],
+      };
+    case 'CERTIFICATE_VIEW':
+      const policies = action.payload.data.policies.map(policy => [
+        {
+          key: 'Policy Number',
+          value: policy.policy_number,
+        },
+        {
+          key: 'Status',
+          value: policy.status,
+        },
+        {
+          key: 'Insurance Type',
+          value: policy.insurance_type,
+        },
+        {
+          key: 'Effective Date',
+          value: policy.effective_date,
+        },
+        {
+          key: 'Expiration Date',
+          value: policy.expiration_date,
+        },
+      ]);
+      return {
+        ...state,
+        general_information: [
+          {
+            key: 'Certificate Number',
+            value: action.payload.data.certificate_number,
+          },
+          {
+            key: "Owner's Email",
+            value: action.payload.data.owner_email,
+          },
+          {
+            key: "Owner's Name",
+            value: action.payload.data.owner_name,
+          },
+          {
+            key: 'Effective Date',
+            value: action.payload.data.effective_date,
+          },
+        ],
+        policies
       };
     default:
       return state;
