@@ -73,9 +73,10 @@ class BrokerIndex extends Component {
   };
 
   handleOk = certificate => {
-    const { email, policies, effectiveDate } = certificate
+    const { email, policies, effectiveDate } = certificate;
+    const { user_id } = this.props.data;
     this.setState({ loading: true });
-    this.props.storeCertificate({ email, policies, effectiveDate });
+    this.props.storeCertificate({ email, policies, effectiveDate, user_id });
     this.setState({ loading: false, visible: false });
   };
 

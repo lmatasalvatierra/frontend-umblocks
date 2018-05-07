@@ -24,6 +24,7 @@ export function submittingCertificate(certificate) {
     const result = await request.post(API_URL, {
       effective_date: certificate.effectiveDate.format('X'),
       owner_email: certificate.email,
+      user_id: certificate.user_id,
       policies: certificate.policies,
     });
     dispatch(certificateSubmit(result));
