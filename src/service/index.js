@@ -18,6 +18,7 @@ import policyRouter from './route/policyRouter';
 import certificateRouter from './route/certificateRouter';
 import carrierRouter from './route/carrierRouter';
 import brokerRouter from './route/brokerRouter';
+import ownerRouter from './route/ownerRouter';
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ app.use(policyRouter.routes());
 app.use(certificateRouter.routes());
 app.use(carrierRouter.routes());
 app.use(brokerRouter.routes());
+app.use(ownerRouter.routes());
 
 const port = 3408;
 app.listen(port, () => {
