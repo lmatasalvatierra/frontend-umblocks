@@ -19,7 +19,7 @@ brokerRouter.get('/api/v1/broker/:id/certificates', async ctx => {
           'X',
         ).format('DD/MM/YYYY'),
         email: certificate.user_email,
-        name: certificate.user_name,
+        owner: certificate.user_name,
       };
     });
     ctx.response.body = certificates;
