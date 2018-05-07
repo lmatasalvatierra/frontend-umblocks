@@ -13,6 +13,7 @@ export default baseAPIUrl => {
   URLConstants.CARRIER = `${URLConstants.BASE}/api/v1/carrier`;
   URLConstants.CERTIFICATE = `${URLConstants.BASE}/api/v1/certificate`;
   URLConstants.BROKER = `${URLConstants.BASE}/api/v1/broker`;
+  URLConstants.OWNER = `${URLConstants.BASE}/api/v1/owner`;
 
   return URLConstants;
 };
