@@ -4,6 +4,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'CERTIFICATES_SUMMARY_OWNER':
     case 'CERTIFICATES_SUMMARY':
       return {
         ...state,
@@ -66,7 +67,7 @@ export default (state = initialState, action) => {
             value: action.payload.data.effective_date,
           },
         ],
-        policies
+        policies,
       };
     default:
       return state;
