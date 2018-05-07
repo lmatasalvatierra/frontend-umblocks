@@ -70,7 +70,6 @@ class OwnerIndex extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.owner,
 });
 
 export default connect(mapStateToProps)(OwnerIndex);
