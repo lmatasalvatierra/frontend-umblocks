@@ -4,6 +4,9 @@ import { Row, Col, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
+import {
+  gettingCertificatesSummaryOwner,
+} from '../../actions/certificates';
 
 const columns = [
   {
@@ -47,8 +50,12 @@ const columns = [
 ];
 
 class OwnerIndex extends Component {
+  componentDidMount() {
+    this.props.gettingCertificates(this.props.data.user_id);
+  }
+
   render() {
-    const { certificate_list } = this.props;
+    const { certificates_list } = this.props;
     return (
       <MainLayout>
         <Row className="table-header">
@@ -60,7 +67,7 @@ class OwnerIndex extends Component {
           <Table
             className="table"
             columns={columns}
-            dataSource={certificate_list}
+            dataSource={certificates_list}
             pagination={false}
           />
         </div>
@@ -70,6 +77,15 @@ class OwnerIndex extends Component {
 }
 
 const mapStateToProps = state => ({
+  ...state.certificates,
+  ...state.auth,
 });
 
-export default connect(mapStateToProps)(OwnerIndex);
+const mapDispatchToProps = dispatch => {
+  return {
+    gettingCertificates: userid =>
+      dispatch(gettingCertificatesSummaryOwner(userid)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OwnerIndex);
