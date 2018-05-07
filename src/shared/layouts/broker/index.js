@@ -7,6 +7,7 @@ import CreateCertificate from '../../components/create_certificate/CreateCertifi
 import {
   submittingCertificate,
   viewingCertificate,
+  gettingCertificatesSummary,
 } from '../../actions/certificates';
 
 class BrokerIndex extends Component {
@@ -62,9 +63,13 @@ class BrokerIndex extends Component {
     visible: false,
   };
 
+  componentDidMount() {
+    this.props.gettingCertificates(this.props.data.user_id);
+  }
+
   handleViewDetail = (certificateid, userid) => {
     this.props.viewCertificate(certificateid, userid);
-  }
+  };
 
   showModal = () => {
     this.setState({
@@ -136,6 +141,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(submittingCertificate(certificate)),
     viewCertificate: (certificateid, userid) =>
       dispatch(viewingCertificate(certificateid, userid)),
+    gettingCertificates: userid => dispatch(gettingCertificatesSummary(userid)),
   };
 };
 
