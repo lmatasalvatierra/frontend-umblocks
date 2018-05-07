@@ -5,10 +5,12 @@ import {
   CERTIFICATE_SUBMIT,
   CERTIFICATE_VIEW,
   CERTIFICATES_SUMMARY,
+  CERTIFICATES_SUMMARY_OWNER,
 } from '../constant/ActionTypes';
 
 const API_URL = UrlConstants(process.env.API_BASE_URL).CERTIFICATE;
 const API_BROKER = UrlConstants(process.env.API_BASE_URL).BROKER;
+const API_OWNER = UrlConstants(process.env.API_BASE_URL).OWNER;
 
 function certificateSubmit(certificate) {
   return {
@@ -27,6 +29,13 @@ function certificateView(policy) {
 function certificatesSummary(certificates) {
   return {
     type: CERTIFICATES_SUMMARY,
+    payload: certificates,
+  };
+}
+
+function certificatesSummaryOwner(certificates) {
+  return {
+    type: CERTIFICATES_SUMMARY_OWNER,
     payload: certificates,
   };
 }
@@ -61,5 +70,18 @@ export function gettingCertificatesSummary(userid) {
       };
     });
     dispatch(certificatesSummary(certificates));
+  };
+}
+
+export function gettingCertificatesSummaryOwner(userid) {
+  return async function(dispatch) {
+    const response = await request.get(`${API_OWNER}/${userid}/certificates`);
+    const certificates = response.data.map((certificate, index) => {
+      return {
+        ...certificate,
+        key: index + 1,
+      };
+    });
+    dispatch(certificatesSummaryOwner(certificates));
   };
 }
