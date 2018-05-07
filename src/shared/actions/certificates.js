@@ -56,7 +56,7 @@ export function viewingCertificate(certificateid, userid) {
   return async function(dispatch) {
     const result = await request.get(`${API_URL}/${certificateid}`);
     dispatch(certificateView(result));
-    history.replace(`${userid}/certificate/${certificateid}`);
+    history.push(`${userid}/certificate/${certificateid}`);
   };
 }
 
