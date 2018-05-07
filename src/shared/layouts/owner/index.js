@@ -6,50 +6,66 @@ import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import {
   gettingCertificatesSummaryOwner,
+  viewingCertificate
 } from '../../actions/certificates';
 
-const columns = [
-  {
-    title: 'Certificate Number',
-    dataIndex: 'certificate_number',
-    key: 'certificate_number',
-    className: 'table__column',
-  },
-  {
-    title: 'Broker',
-    dataIndex: 'broker',
-    key: 'broker',
-    className: 'table__column',
-  },
-  {
-    title: 'Effective Date',
-    dataIndex: 'effective_date',
-    key: 'effective_date',
-    className: 'table__column',
-  },
-  {
-    title: 'COI',
-    key: 'coi',
-    render: (text, record) => (
-      <span>
-        <Link to={'/owner'}>View details</Link>
-      </span>
-    ),
-    className: 'table__column',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a href="#">Share Certificate</a>
-      </span>
-    ),
-    className: 'table__column',
-  },
-];
-
 class OwnerIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.columns = [
+      {
+        title: 'Certificate Number',
+        dataIndex: 'certificate_number',
+        key: 'certificate_number',
+        className: 'table__column',
+      },
+      {
+        title: 'Broker',
+        dataIndex: 'broker',
+        key: 'broker',
+        className: 'table__column',
+      },
+      {
+        title: 'Effective Date',
+        dataIndex: 'effective_date',
+        key: 'effective_date',
+        className: 'table__column',
+      },
+      {
+        title: 'COI',
+        key: 'coi',
+        render: (text, record) => (
+          <span>
+            <a
+              onClick={() =>
+                this.handleViewDetail(
+                  record.certificate_number,
+                  this.props.data.user_id,
+              )}
+            >
+              View details
+            </a>
+          </span>
+        ),
+        className: 'table__column',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+          <span>
+            <a href="#">Share Certificate</a>
+          </span>
+        ),
+        className: 'table__column',
+      },
+    ];
+  }
+
+  handleViewDetail = (certificateid, userid) => {
+    this.props.viewCertificate(certificateid, userid);
+  };
+
   componentDidMount() {
     this.props.gettingCertificates(this.props.data.user_id);
   }
@@ -66,7 +82,7 @@ class OwnerIndex extends Component {
         <div className="layout__background">
           <Table
             className="table"
-            columns={columns}
+            columns={this.columns}
             dataSource={certificates_list}
             pagination={false}
           />
@@ -85,6 +101,8 @@ const mapDispatchToProps = dispatch => {
   return {
     gettingCertificates: userid =>
       dispatch(gettingCertificatesSummaryOwner(userid)),
+    viewCertificate: (certificateid, userid) =>
+      dispatch(viewingCertificate(certificateid, userid)),
   };
 };
 
