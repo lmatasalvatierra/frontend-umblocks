@@ -44,6 +44,11 @@ class Routes extends Component {
         <Route exact path="/" component={() => <Redirect to={'/login'} />} />
         <Route path="/login" component={Login} />
         <PrivateRoute
+          path="/owner/:owner/certificate/:certificateid"
+          isAuthenticated={this.isOwner}
+          component={CertificateView}
+        />
+        <PrivateRoute
           path="/owner/:id"
           isAuthenticated={this.isOwner}
           component={OwnerIndex}
