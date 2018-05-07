@@ -35,7 +35,7 @@ export function viewingPolicy(policyid, userid) {
   return async function(dispatch) {
     const result = await request.get(`${API_URL}/${policyid}`);
     dispatch(policyView(result));
-    history.replace(`${userid}/policy/${policyid}`);
+    history.push(`${userid}/policy/${policyid}`);
   };
 }
 
