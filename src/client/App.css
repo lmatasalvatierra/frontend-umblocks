@@ -74,8 +74,13 @@
 .layout__background {
   background-color: #ffffff;
   padding-bottom: 20px;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   min-height: 65vh;
+}
+
+.layout__background .ant-spin-nested-loading {
+  min-height: 300px;
 }
 
 .header {
