@@ -91,6 +91,7 @@ class BrokerIndex extends Component {
     }, 10);
   };
   render() {
+    const { loadingCertificates } = this.props;
     return (
       <MainLayout>
         <Row className="table-header">
@@ -117,6 +118,7 @@ class BrokerIndex extends Component {
             columns={this.columns}
             dataSource={this.props.certificates_list}
             pagination={false}
+            loading={loadingCertificates}
           />
           <CreateCertificate
             handleOk={this.handleOk}
