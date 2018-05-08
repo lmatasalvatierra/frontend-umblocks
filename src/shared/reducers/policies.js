@@ -5,6 +5,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'POLICIES_SUMMARY_BEGIN':
+      return {
+        ...state,
+        loadingPolicies: true,
+      };
     case 'POLICY_CANCEL':
       return {
         ...state,
@@ -18,6 +23,7 @@ export default (state = initialState, action) => {
     case 'POLICIES_SUMMARY':
       return {
         ...state,
+        loadingPolicies: false,
         policies_list: [...state.policies_list, ...action.payload],
       };
     case 'POLICY_SUBMIT':
