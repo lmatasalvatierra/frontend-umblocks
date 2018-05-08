@@ -138,6 +138,7 @@ class CarrierIndex extends Component {
   };
 
   render() {
+    const { loadingPolicies } = this.props;
     return (
       <MainLayout>
         <Row className="table-header">
@@ -164,6 +165,7 @@ class CarrierIndex extends Component {
             columns={this.columns}
             dataSource={this.props.policies_list}
             pagination={false}
+            loading={loadingPolicies}
           />
           <CreatePolicy
             handleOk={this.handleOk}
