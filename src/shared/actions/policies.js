@@ -5,6 +5,7 @@ import {
   POLICY_SUBMIT,
   POLICY_VIEW,
   POLICIES_SUMMARY,
+  POLICY_CANCEL
 } from '../constant/ActionTypes';
 
 const API_URL = UrlConstants(process.env.API_BASE_URL).POLICY;
@@ -28,6 +29,13 @@ function policiesSummary(policies) {
   return {
     type: POLICIES_SUMMARY,
     payload: policies,
+  };
+}
+
+function policyCancel(policy) {
+  return {
+    type: POLICY_CANCEL,
+    payload: policy,
   };
 }
 
@@ -64,5 +72,12 @@ export function gettingPoliciesSummary(userid) {
       };
     });
     dispatch(policiesSummary(policies));
+  };
+}
+
+export function cancellingPolicy(policyid, key) {
+  return async function(dispatch) {
+    const result = await request.put(`${API_URL}/${policyid}`);
+    dispatch(policyCancel({ result, key }));
   };
 }

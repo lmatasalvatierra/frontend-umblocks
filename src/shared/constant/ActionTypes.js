@@ -10,4 +10,6 @@ export const POLICY_SUBMIT = 'POLICY_SUBMIT';
 
 export const POLICY_VIEW = 'POLICY_VIEW';
 
+export const POLICY_CANCEL = 'POLICY_CANCEL';
+
 export const POLICIES_SUMMARY = 'POLICIES_SUMMARY';

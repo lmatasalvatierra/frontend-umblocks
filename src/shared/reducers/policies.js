@@ -5,6 +5,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'POLICY_CANCEL':
+      return {
+        ...state,
+        policies_list: state.policies_list.map(
+          (policy, index) =>
+            index + 1 === action.payload.key
+              ? { ...policy, status: action.payload.result.data.status }
+              : policy,
+        ),
+      };
     case 'POLICIES_SUMMARY':
       return {
         ...state,
