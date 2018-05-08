@@ -4,10 +4,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case 'CERTIFICATES_SUMMARY_BEGIN':
+      return {
+        ...state,
+        loadingCertificates: true,
+      };
     case 'CERTIFICATES_SUMMARY_OWNER':
     case 'CERTIFICATES_SUMMARY':
       return {
         ...state,
+        loadingCertificates: false,
         certificates_list: [...state.certificates_list, ...action.payload],
       };
     case 'CERTIFICATE_SUBMIT':
