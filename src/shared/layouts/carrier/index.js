@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Row, Col, Button, Table, Input, Divider } from 'antd';
+import { Row, Col, Button, Table, Input, Divider, Modal } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreatePolicy from '../../components/create_policy/CreatePolicy';
@@ -8,7 +8,10 @@ import {
   submittingPolicy,
   viewingPolicy,
   gettingPoliciesSummary,
+  cancellingPolicy,
 } from '../../actions/policies';
+
+const confirm = Modal.confirm;
 
 class CarrierIndex extends Component {
   constructor(props) {
@@ -64,8 +67,21 @@ class CarrierIndex extends Component {
             >
               View
             </a>
-            <Divider type="vertical" />
-            <a>Cancel</a>
+            {record.status === 'Active' ? (
+              <span>
+                <Divider type="vertical" />
+                <a
+                  style={{ color: 'red' }}
+                  onClick={() =>
+                    this.showCancellationConfirm(
+                      record.policy_number,
+                      record.key,
+                    )}
+                >
+                  Cancel
+                </a>
+              </span>
+            ) : null}
           </span>
         ),
         className: 'table__column',
@@ -84,7 +100,25 @@ class CarrierIndex extends Component {
 
   handleViewDetail = (policyid, userid) => {
     this.props.viewPolicy(policyid, userid);
-  }
+  };
+
+  handleCancelPolicy = (policyid, key) => {
+    this.props.cancellingPolicy(policyid, key);
+  };
+
+  showCancellationConfirm = (policyid, key) => {
+    const handleCancel = this.handleCancelPolicy;
+    confirm({
+      title: 'Are you sure you want to cancel this Policy?',
+      content: 'This action is impossible to revert',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        handleCancel(policyid, key);
+      },
+    });
+  };
 
   showModal = () => {
     this.setState({
@@ -153,6 +187,8 @@ const mapDispatchToProps = dispatch => {
     storePolicy: policy => dispatch(submittingPolicy(policy)),
     viewPolicy: (policyid, userid) => dispatch(viewingPolicy(policyid, userid)),
     gettingPolicies: userid => dispatch(gettingPoliciesSummary(userid)),
+    cancellingPolicy: (policyid, key) =>
+      dispatch(cancellingPolicy(policyid, key)),
   };
 };
 
