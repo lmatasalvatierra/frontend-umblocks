@@ -34,6 +34,21 @@ policyRouter.get('/api/v1/policy/:id', async ctx => {
   }
 });
 
+policyRouter.put('/api/v1/policy/:id', async ctx => {
+  try {
+    const manager = await ctx.manager.deployed();
+    const result = await manager.cancelPolicy(ctx.params.id);
+    const response = {
+      policy_number: result.logs[0].args.policyNumber.toNumber(),
+      status: Status[result.logs[0].args.status],
+    };
+    ctx.response.body = response;
+  } catch (err) {
+    logger.debug(err);
+    ctx.throw('Generic Error', 500);
+  }
+});
+
 policyRouter.post('/api/v1/policy', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
