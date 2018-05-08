@@ -12,7 +12,7 @@ import {
 const API_URL = UrlConstants(process.env.API_BASE_URL).POLICY;
 const API_CARRIER = UrlConstants(process.env.API_BASE_URL).CARRIER;
 
-function policyBegin() {
+function policySummaryBegin() {
   return {
     type: POLICIES_SUMMARY_BEGIN,
   };
@@ -71,7 +71,7 @@ export function submittingPolicy(policy) {
 
 export function gettingPoliciesSummary(userid) {
   return async function(dispatch) {
-    dispatch(policyBegin());
+    dispatch(policySummaryBegin());
     const response = await request.get(`${API_CARRIER}/${userid}/policies`);
     const policies = response.data.map((policy, index) => {
       return {

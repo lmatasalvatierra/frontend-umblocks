@@ -13,7 +13,7 @@ const API_URL = UrlConstants(process.env.API_BASE_URL).CERTIFICATE;
 const API_BROKER = UrlConstants(process.env.API_BASE_URL).BROKER;
 const API_OWNER = UrlConstants(process.env.API_BASE_URL).OWNER;
 
-function certificateBegin() {
+function certificatesSummaryBegin() {
   return {
     type: CERTIFICATES_SUMMARY_BEGIN,
   };
@@ -69,7 +69,7 @@ export function viewingCertificate(certificateid, userid) {
 
 export function gettingCertificatesSummary(userid) {
   return async function(dispatch) {
-    dispatch(certificateBegin());
+    dispatch(certificatesSummaryBegin());
     const response = await request.get(`${API_BROKER}/${userid}/certificates`);
     const certificates = response.data.map((certificate, index) => {
       return {
@@ -83,7 +83,7 @@ export function gettingCertificatesSummary(userid) {
 
 export function gettingCertificatesSummaryOwner(userid) {
   return async function(dispatch) {
-    dispatch(certificateBegin());
+    dispatch(certificatesSummaryBegin());
     const response = await request.get(`${API_OWNER}/${userid}/certificates`);
     const certificates = response.data.map((certificate, index) => {
       return {
