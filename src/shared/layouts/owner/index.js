@@ -71,7 +71,7 @@ class OwnerIndex extends Component {
   }
 
   render() {
-    const { certificates_list } = this.props;
+    const { certificates_list, loadingCertificates } = this.props;
     return (
       <MainLayout>
         <Row className="table-header">
@@ -85,6 +85,7 @@ class OwnerIndex extends Component {
             columns={this.columns}
             dataSource={certificates_list}
             pagination={false}
+            loading={loadingCertificates}
           />
         </div>
       </MainLayout>

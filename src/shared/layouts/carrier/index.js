@@ -129,8 +129,12 @@ class CarrierIndex extends Component {
   handleOk = policy => {
     const { user_id } = this.props.data;
     this.setState({ loading: true });
-    this.props.storePolicy({ ...policy, user_id });
-    this.setState({ loading: false, visible: false });
+    const removeModal = () => {
+      this.setState({ loading: false, visible: false });
+    };
+    this.props.storePolicy({ ...policy, user_id }).then(function() {
+      removeModal();
+    });
   };
 
   handleCancel = () => {
@@ -138,6 +142,7 @@ class CarrierIndex extends Component {
   };
 
   render() {
+    const { loadingPolicies } = this.props;
     return (
       <MainLayout>
         <Row className="table-header">
@@ -164,6 +169,7 @@ class CarrierIndex extends Component {
             columns={this.columns}
             dataSource={this.props.policies_list}
             pagination={false}
+            loading={loadingPolicies}
           />
           <CreatePolicy
             handleOk={this.handleOk}
