@@ -2,6 +2,7 @@ import KoaRouter from 'koa-router';
 import logger from '../logger';
 
 const moment = require('moment');
+const hexToUuid = require('hex-to-uuid');
 
 const brokerRouter = new KoaRouter();
 
@@ -13,7 +14,7 @@ brokerRouter.get('/api/v1/broker/:id/certificates', async ctx => {
 
     const certificates = json.map(certificate => {
       return {
-        certificate_number: certificate.certificate_number,
+        certificate_number: hexToUuid(certificate.certificate_uuid),
         effective_date: moment(
           parseInt(certificate.effective_date, 10),
           'X',

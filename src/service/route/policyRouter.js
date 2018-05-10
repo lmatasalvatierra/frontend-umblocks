@@ -43,7 +43,7 @@ policyRouter.put('/api/v1/policy/:id', async ctx => {
     const manager = await ctx.manager.deployed();
     const result = await manager.cancelPolicy(uuidToHex(ctx.params.id, true));
     const response = {
-      policy_number: result.logs[0].args.policyNumber.toNumber(),
+      policy_number: hexToUuid(result.logs[0].args.policyUUID),
       status: Status[result.logs[0].args.status],
     };
     ctx.response.body = response;
