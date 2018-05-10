@@ -3,6 +3,9 @@ import Web3 from 'web3';
 import logger from '../logger';
 
 const moment = require('moment');
+const uuidv4 = require('uuid/v4');
+const uuidToHex = require('uuid-to-hex');
+const hexToUuid = require('hex-to-uuid');
 
 const Status = ['Active', 'Cancelled', 'Expired'];
 
@@ -11,10 +14,11 @@ const policyRouter = new KoaRouter();
 policyRouter.get('/api/v1/policy/:id', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
-    const result = await manager.getPolicy(ctx.params.id);
+    const uuid = uuidToHex(ctx.params.id, true);
+    const result = await manager.getPolicy.call(uuid);
     const json = JSON.parse(result);
     const policy = {
-      policy_number: json.policy_number,
+      policy_number: hexToUuid(json.policy_uuid),
       insurance_type: json.insurance_type,
       effective_date: moment(parseInt(json.effective_date, 10), 'X').format(
         'DD/MM/YYYY',
@@ -37,7 +41,7 @@ policyRouter.get('/api/v1/policy/:id', async ctx => {
 policyRouter.put('/api/v1/policy/:id', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
-    const result = await manager.cancelPolicy(ctx.params.id);
+    const result = await manager.cancelPolicy(uuidToHex(ctx.params.id, true));
     const response = {
       policy_number: result.logs[0].args.policyNumber.toNumber(),
       status: Status[result.logs[0].args.status],
@@ -51,13 +55,15 @@ policyRouter.put('/api/v1/policy/:id', async ctx => {
 
 policyRouter.post('/api/v1/policy', async ctx => {
   try {
+    const policyUUID = uuidToHex(uuidv4(), true);
     const manager = await ctx.manager.deployed();
     const result = await manager.createPolicy(
       Web3.utils.asciiToHex(ctx.request.body.owner_email),
       Web3.utils.asciiToHex(ctx.request.body.insurance_type),
       parseInt(ctx.request.body.effective_date, 10),
       parseInt(ctx.request.body.expiration_date, 10),
-      parseInt(ctx.request.body.user_id, 10)
+      parseInt(ctx.request.body.user_id, 10),
+      policyUUID
     );
     const policy = {
       owner_email: Web3.utils.hexToAscii(result.logs[0].args.ownerEmail),
@@ -71,7 +77,7 @@ policyRouter.post('/api/v1/policy', async ctx => {
       ).format('DD/MM/YYYY'),
       insurance_type: Web3.utils.hexToAscii(result.logs[0].args.insuranceType),
       status: Status[result.logs[0].args.status],
-      policy_number: result.logs[0].args.policyNumber.toNumber(),
+      policy_number: hexToUuid(result.logs[0].args.policyUUID),
     };
     ctx.response.body = policy;
   } catch (err) {

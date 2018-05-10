@@ -2,6 +2,7 @@ import KoaRouter from 'koa-router';
 import logger from '../logger';
 
 const moment = require('moment');
+const hexToUuid = require('hex-to-uuid');
 
 const Status = ['Active', 'Cancelled', 'Expired'];
 
@@ -15,7 +16,7 @@ carrierRouter.get('/api/v1/carrier/:id/policies', async ctx => {
 
     const policies = json.map(policy => {
       return {
-        policy_number: policy.policy_number,
+        policy_number: hexToUuid(policy.policy_uuid),
         insurance_type: policy.insurance_type,
         effective_date: moment(parseInt(policy.effective_date, 10), 'X').format(
           'DD/MM/YYYY',
