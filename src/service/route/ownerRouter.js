@@ -2,6 +2,7 @@ import KoaRouter from 'koa-router';
 import logger from '../logger';
 
 const moment = require('moment');
+const uuidToHex = require('uuid-to-hex');
 const hexToUuid = require('hex-to-uuid');
 
 const ownerRouter = new KoaRouter();
@@ -9,7 +10,7 @@ const ownerRouter = new KoaRouter();
 ownerRouter.get('/api/v1/owner/:id/certificates', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
-    const result = await manager.getCoisOfOwner(ctx.params.id);
+    const result = await manager.getCoisOfOwner(uuidToHex(ctx.params.id, true));
     const json = JSON.parse(result);
 
     const certificates = json.map(certificate => {

@@ -21,7 +21,7 @@ certificateRouter.post('/api/v1/certificate', async ctx => {
     const result = await manager.createCoi(
       Web3.utils.asciiToHex(ctx.request.body.owner_email),
       parseInt(ctx.request.body.effective_date, 10),
-      parseInt(ctx.request.body.user_id, 10),
+      uuidToHex(ctx.request.body.user_id, true),
       policies,
       certificateUUID
     );
