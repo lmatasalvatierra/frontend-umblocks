@@ -62,7 +62,7 @@ policyRouter.post('/api/v1/policy', async ctx => {
       Web3.utils.asciiToHex(ctx.request.body.insurance_type),
       parseInt(ctx.request.body.effective_date, 10),
       parseInt(ctx.request.body.expiration_date, 10),
-      parseInt(ctx.request.body.user_id, 10),
+      uuidToHex(ctx.request.body.user_id, true),
       policyUUID
     );
     const policy = {

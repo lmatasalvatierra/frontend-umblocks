@@ -1,6 +1,8 @@
 import KoaRouter from 'koa-router';
 import Web3 from 'web3';
 
+const hexToUuid = require('hex-to-uuid');
+
 const authRouter = new KoaRouter();
 
 authRouter.post('/api/v1/login', async ctx => {
@@ -11,14 +13,14 @@ authRouter.post('/api/v1/login', async ctx => {
       ctx.request.body.password
     );
     const type = result[1].toNumber();
-    const id = result[0].toNumber();
+    const uuid = hexToUuid(result[0]);
     switch (type) {
       case 0:
         ctx.body = {
           is_authenticated: true,
           user_type: 'owner',
           username: ctx.request.body.username,
-          user_id: id,
+          user_id: uuid,
         };
         break;
       case 1:
@@ -26,7 +28,7 @@ authRouter.post('/api/v1/login', async ctx => {
           is_authenticated: true,
           user_type: 'carrier',
           username: ctx.request.body.username,
-          user_id: id,
+          user_id: uuid,
         };
         break;
       case 2:
@@ -34,7 +36,7 @@ authRouter.post('/api/v1/login', async ctx => {
           is_authenticated: true,
           user_type: 'broker',
           username: ctx.request.body.username,
-          user_id: id,
+          user_id: uuid,
         };
         break;
       default:
