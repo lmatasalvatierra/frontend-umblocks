@@ -130,13 +130,26 @@ class CarrierIndex extends Component {
     const { user_id } = this.props.data;
     this.setState({ loading: true });
     this.props.storePolicy.bind(this);
-    this.props.storePolicy({ ...policy, user_id }).then(() => {
-      this.setState({ loading: false, visible: false });
-    });
+    this.props
+      .storePolicy({ ...policy, user_id })
+      .then(() => {
+        this.setState({ loading: false, visible: false });
+      })
+      .catch(() => {
+        this.setState({ loading: false });
+        this.errorSubmit();
+      });
   };
 
   handleCancel = () => {
     this.setState({ visible: false });
+  };
+
+  errorSubmit = () => {
+    Modal.error({
+      title: 'An error has ocurred',
+      content: 'Please try again',
+    });
   };
 
   render() {

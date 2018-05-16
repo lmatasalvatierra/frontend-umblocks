@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Row, Col, Button, Table, Input } from 'antd';
+import { Row, Col, Button, Table, Input, Modal } from 'antd';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import CreateCertificate from '../../components/create_certificate/CreateCertificate';
@@ -86,6 +86,10 @@ class BrokerIndex extends Component {
       .storeCertificate({ email, policies, effectiveDate, user_id })
       .then(() => {
         this.setState({ loading: false, visible: false });
+      })
+      .catch(() => {
+        this.setState({ loading: false });
+        this.errorSubmit();
       });
   };
 
@@ -94,6 +98,14 @@ class BrokerIndex extends Component {
       this.setState({ visible: false });
     }, 10);
   };
+
+  errorSubmit = () => {
+    Modal.error({
+      title: 'An error has ocurred',
+      content: 'Please try again',
+    });
+  };
+
   render() {
     const { loadingCertificates } = this.props;
     return (
