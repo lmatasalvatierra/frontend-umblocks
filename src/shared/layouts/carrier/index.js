@@ -109,11 +109,12 @@ class CarrierIndex extends Component {
   showCancellationConfirm = (policyid, key) => {
     const handleCancel = this.handleCancelPolicy;
     confirm({
-      title: 'Are you sure you want to cancel this Policy?',
+      title: 'Are you sure you want to cancel this policy?',
       content: 'This action is impossible to revert',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
+      width: '500px',
       onOk() {
         handleCancel(policyid, key);
       },
