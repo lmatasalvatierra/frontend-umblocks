@@ -81,12 +81,12 @@ class BrokerIndex extends Component {
     const { email, policies, effectiveDate } = certificate;
     const { user_id } = this.props.data;
     this.setState({ loading: true });
-    const removeModal = () => {
-      this.setState({ loading: false, visible: false });
-    };
-    this.props.storeCertificate({ email, policies, effectiveDate, user_id }).then(function() {
-      removeModal();
-    });
+    this.props.storeCertificate.bind(this);
+    this.props
+      .storeCertificate({ email, policies, effectiveDate, user_id })
+      .then(() => {
+        this.setState({ loading: false, visible: false });
+      });
   };
 
   handleCancel = () => {

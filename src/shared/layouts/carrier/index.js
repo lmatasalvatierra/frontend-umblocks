@@ -129,11 +129,9 @@ class CarrierIndex extends Component {
   handleOk = policy => {
     const { user_id } = this.props.data;
     this.setState({ loading: true });
-    const removeModal = () => {
+    this.props.storePolicy.bind(this);
+    this.props.storePolicy({ ...policy, user_id }).then(() => {
       this.setState({ loading: false, visible: false });
-    };
-    this.props.storePolicy({ ...policy, user_id }).then(function() {
-      removeModal();
     });
   };
 
