@@ -4,11 +4,19 @@ import auth from './auth';
 import certificates from './certificates';
 import policies from './policies';
 
-const Reducer = combineReducers({
+const appReducer = combineReducers({
   routing: routerReducer,
   auth,
   certificates,
   policies,
 });
+
+const Reducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default Reducer;
