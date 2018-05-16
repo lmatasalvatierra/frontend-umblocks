@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
+import { connect } from 'react-redux';
 import { Layout, Row, Col } from 'antd';
 import MdAccountCircle from 'react-icons/lib/md/account-circle';
 import FaSignOut from 'react-icons/lib/fa/sign-out';
 import { Link } from 'react-router-dom';
+import { userLoggedOut } from '../../actions/auth';
 
 const { Header, Footer, Content } = Layout;
 
 class MainLayout extends Component {
+  handleLogout = () => {
+    this.props.onLogout();
+  };
+
   render() {
     return (
       <div className="container">
@@ -24,7 +30,11 @@ class MainLayout extends Component {
                 <MdAccountCircle /> Peter
               </Col>
               <Col className="header__logout" span={3}>
-                <Link to={'/'} style={{ color: 'white' }}>
+                <Link
+                  to="/login"
+                  onClick={this.handleLogout}
+                  style={{ color: 'white' }}
+                >
                   Log out <FaSignOut />
                 </Link>
               </Col>
@@ -58,4 +68,10 @@ class MainLayout extends Component {
   }
 }
 
-export default MainLayout;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(userLoggedOut()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(MainLayout);
