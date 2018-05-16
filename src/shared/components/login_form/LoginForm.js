@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Alert } from 'antd';
 import 'antd/dist/antd.css';
 import auth from '../../actions/auth';
 
@@ -15,6 +15,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 class LoginForm extends Component {
+  state = {
+    loading: false,
+    loginError: false,
+  };
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -22,29 +27,23 @@ class LoginForm extends Component {
       if (errors) {
         return false;
       }
+      this.setState({ loading: true });
       const values = this.props.form.getFieldsValue();
-      this.props.onSubmit(
-        values.userName,
-        web3.utils.keccak256(values.password),
-      );
+      this.props.onSubmit.bind(this);
+      this.props
+        .onSubmit(values.userName, web3.utils.keccak256(values.password))
+        .then(() => {
+          this.setState({ loading: false });
+        })
+        .catch(err => {
+          this.setState({ loading: false, loginError: true });
+        });
     });
-  };
-
-  loginFailedCallback = email => {
-    const { setFields } = this.props.form;
-    const newValue = {
-      userName: {
-        value: email,
-      },
-      password: {
-        value: '',
-      },
-    };
-    setFields(newValue);
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { loginError } = this.state
 
     const usernameProps = getFieldDecorator('userName', {
       rules: [{ required: true, message: 'Please input your username!' }],
@@ -54,6 +53,14 @@ class LoginForm extends Component {
     });
     return (
       <Form className="form" onSubmit={this.handleSubmit}>
+        {loginError ? (
+          <Alert
+            style={{ marginBottom: 16 }}
+            message="Please enter valid values"
+            type="error"
+            showIcon
+          />
+        ) : null}
         <FormItem style={{ marginBottom: 16 }}>
           {usernameProps(
             <Input
@@ -95,6 +102,7 @@ class LoginForm extends Component {
             type="primary"
             htmlType="submit"
             className="login-form-button"
+            loading={this.state.loading}
           >
             Log in
           </Button>
