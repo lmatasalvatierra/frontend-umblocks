@@ -17,3 +17,7 @@ export const POLICY_VIEW = 'POLICY_VIEW';
 export const POLICY_CANCEL = 'POLICY_CANCEL';
 
 export const POLICIES_SUMMARY = 'POLICIES_SUMMARY';
+
+export const USER_LOGOUT = 'USER_LOGOUT';
+
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';
