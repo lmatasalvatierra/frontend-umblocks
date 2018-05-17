@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loadingCertificates: false,
-        certificates_list: [...state.certificates_list, ...action.payload],
+        certificates_list: [...action.payload],
       };
     case 'CERTIFICATE_SUBMIT':
       return {

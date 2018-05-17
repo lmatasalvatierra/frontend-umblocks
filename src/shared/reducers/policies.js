@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loadingPolicies: false,
-        policies_list: [...state.policies_list, ...action.payload],
+        policies_list: [...action.payload],
       };
     case 'POLICY_SUBMIT':
       return {
