@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Row, Col, Button, Table, Input, Modal } from 'antd';
 import { connect } from 'react-redux';
@@ -48,7 +49,7 @@ class BrokerIndex extends Component {
                 this.handleViewDetail(
                   record.certificate_number,
                   this.props.data.user_id,
-              )}
+                )}
             >
               View details
             </a>
@@ -147,6 +148,16 @@ class BrokerIndex extends Component {
     );
   }
 }
+
+BrokerIndex.propTypes = {
+  gettingCertificates: PropTypes.func.isRequired,
+  viewCertificate: PropTypes.func.isRequired,
+  storeCertificate: PropTypes.func.isRequired,
+  loadingCertificates: PropTypes.bool,
+  certificates_list: PropTypes.array,
+  data: PropTypes.object,
+  user_id: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   ...state.certificates,

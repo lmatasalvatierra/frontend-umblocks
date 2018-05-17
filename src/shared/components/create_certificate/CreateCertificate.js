@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Modal, Button, Form, Input, DatePicker, Icon } from 'antd';
 
@@ -35,7 +36,7 @@ class CreateCertificate extends React.Component {
     const { form } = this.props;
     const keys = form.getFieldValue('keys');
     const nextKeys = keys.concat(keyId);
-    keyId++;
+    keyId += 1;
     form.setFieldsValue({
       keys: nextKeys,
     });
@@ -59,10 +60,16 @@ class CreateCertificate extends React.Component {
         <FormItem label={index === 0 ? 'Policies' : ''} required key={k}>
           {getFieldDecorator(`policies[${k}]`, {
             rules: [{ required: true, message: 'Required field' }],
-          })(<Input size="large" placeholder="Policy Number" style={{ width: "90%", marginRight: "8px"}}/>)}
+          })(
+            <Input
+              size="large"
+              placeholder="Policy Number"
+              style={{ width: '90%', marginRight: '8px' }}
+            />,
+          )}
           {keys.length > 1 ? (
             <Icon
-              style={{fontSize: 22}}
+              style={{ fontSize: 22 }}
               type="minus-circle-o"
               disabled={keys.length === 1}
               onClick={() => this.remove(k)}
@@ -114,5 +121,16 @@ class CreateCertificate extends React.Component {
     );
   }
 }
+
+CreateCertificate.propTypes = {
+  handleOk: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  form: PropTypes.object,
+  validateFields: PropTypes.func,
+  getFieldsValue: PropTypes.func,
+  getFieldDecorator: PropTypes.func,
+  visible: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 export default createForm()(CreateCertificate);

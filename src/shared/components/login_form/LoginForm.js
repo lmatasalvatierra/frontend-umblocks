@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox, Alert } from 'antd';
 import 'antd/dist/antd.css';
@@ -7,12 +8,6 @@ import { loginUser } from '../../actions/auth';
 const FormItem = Form.Item;
 const createForm = Form.create;
 const web3 = require('web3');
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onSubmit: (username, password) => dispatch(loginUser(username, password)),
-  };
-};
 
 class LoginForm extends Component {
   state = {
@@ -32,7 +27,7 @@ class LoginForm extends Component {
       this.props.onSubmit.bind(this);
       this.props
         .onSubmit(values.userName, web3.utils.keccak256(values.password))
-        .catch(err => {
+        .catch(() => {
           this.setState({ loading: false, loginError: true });
         });
     });
@@ -40,7 +35,7 @@ class LoginForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loginError } = this.state
+    const { loginError } = this.state;
 
     const usernameProps = getFieldDecorator('userName', {
       rules: [{ required: true, message: 'Please input your username!' }],
@@ -108,5 +103,19 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  form: PropTypes.object,
+  validateFields: PropTypes.func,
+  getFieldsValue: PropTypes.func,
+  getFieldDecorator: PropTypes.func,
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmit: (username, password) => dispatch(loginUser(username, password)),
+  };
+};
 
 export default connect(null, mapDispatchToProps)(createForm()(LoginForm));

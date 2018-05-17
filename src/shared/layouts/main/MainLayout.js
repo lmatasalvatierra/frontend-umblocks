@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import { Layout, Row, Col } from 'antd';
@@ -84,6 +85,13 @@ class MainLayout extends Component {
     );
   }
 }
+
+MainLayout.propTypes = {
+  onLogout: PropTypes.func.isRequired,
+  data: PropTypes.object,
+  user_type: PropTypes.string,
+  name: PropTypes.string,
+};
 
 const mapDispatchToProps = dispatch => {
   return {

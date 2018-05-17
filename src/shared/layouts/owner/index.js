@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Row, Col, Table } from 'antd';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MainLayout from '../main/MainLayout';
 import {
   gettingCertificatesSummaryOwner,
-  viewingCertificate
+  viewingCertificate,
 } from '../../actions/certificates';
 
 class OwnerIndex extends Component {
@@ -41,7 +41,7 @@ class OwnerIndex extends Component {
                 this.handleViewDetail(
                   record.certificate_number,
                   this.props.data.user_id,
-              )}
+                )}
             >
               View details
             </a>
@@ -62,13 +62,13 @@ class OwnerIndex extends Component {
     ];
   }
 
-  handleViewDetail = (certificateid, userid) => {
-    this.props.viewCertificate(certificateid, userid);
-  };
-
   componentDidMount() {
     this.props.gettingCertificates(this.props.data.user_id);
   }
+
+  handleViewDetail = (certificateid, userid) => {
+    this.props.viewCertificate(certificateid, userid);
+  };
 
   render() {
     const { certificates_list, loadingCertificates } = this.props;
@@ -92,6 +92,15 @@ class OwnerIndex extends Component {
     );
   }
 }
+
+OwnerIndex.propTypes = {
+  gettingCertificates: PropTypes.func.isRequired,
+  viewCertificate: PropTypes.func.isRequired,
+  loadingCertificates: PropTypes.bool,
+  certificates_list: PropTypes.array,
+  data: PropTypes.object,
+  user_id: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   ...state.certificates,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter, Redirect, Route } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
@@ -8,6 +9,11 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
       isAuthenticated() ? <Component {...props} /> : <Redirect to={'/'} />}
   />
 );
+
+PrivateRoute.propTypes = {
+  component: PropTypes.func,
+  isAuthenticated: PropTypes.func,
+};
 
 const WrappedPrivateRoute = withRouter(PrivateRoute);
 
