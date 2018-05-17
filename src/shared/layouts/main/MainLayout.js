@@ -3,11 +3,26 @@ import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import { Layout, Row, Col } from 'antd';
 import MdAccountCircle from 'react-icons/lib/md/account-circle';
+import FaBuildingO from 'react-icons/lib/fa/building-o';
+import FaSuitcase from 'react-icons/lib/fa/suitcase';
 import FaSignOut from 'react-icons/lib/fa/sign-out';
 import { Link } from 'react-router-dom';
 import { userLoggedOut } from '../../actions/auth';
 
 const { Header, Footer, Content } = Layout;
+
+const userIcon = userType => {
+  switch (userType) {
+    case 'owner':
+      return <MdAccountCircle size={30} style={{ paddingRight: '8px' }} />;
+    case 'broker':
+      return <FaSuitcase size={30} style={{ paddingRight: '8px' }} />;
+    case 'carrier':
+      return <FaBuildingO size={30} style={{ paddingRight: '8px' }} />;
+    default:
+      break;
+  }
+};
 
 class MainLayout extends Component {
   handleLogout = () => {
@@ -15,6 +30,7 @@ class MainLayout extends Component {
   };
 
   render() {
+    const { name, user_type } = this.props.data;
     return (
       <div className="container">
         <Layout style={{ background: 'unset' }}>
@@ -27,7 +43,8 @@ class MainLayout extends Component {
                 Umblocks
               </Col>
               <Col className="header__user-profile" span={3} offset={10}>
-                <MdAccountCircle /> Peter
+                {userIcon(user_type)}
+                {name}
               </Col>
               <Col className="header__logout" span={3}>
                 <Link
@@ -74,4 +91,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(MainLayout);
+const mapStateToProps = state => ({
+  ...state.auth,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
