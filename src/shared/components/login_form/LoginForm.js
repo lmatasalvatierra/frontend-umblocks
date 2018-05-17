@@ -32,9 +32,6 @@ class LoginForm extends Component {
       this.props.onSubmit.bind(this);
       this.props
         .onSubmit(values.userName, web3.utils.keccak256(values.password))
-        .then(() => {
-          this.setState({ loading: false });
-        })
         .catch(err => {
           this.setState({ loading: false, loginError: true });
         });
