@@ -16,21 +16,23 @@ class CertificateView extends Component {
         <Row className="table-header">
           <Col span={12}>
             <h2 className="table-header__title">
-              <a style={{ color: 'white', paddingRight: '10px'}} onClick={() => history.goBack()}>
+              <a
+                style={{ color: 'white', paddingRight: '10px' }}
+                onClick={() => history.goBack()}
+              >
                 <MdArrowBack />
               </a>
               Certificate
             </h2>
           </Col>
-          <Col span={12}>
-          </Col>
+          <Col span={12} />
         </Row>
         <div className="table">
           <div className="table__background">
             <ListCertificate certificate={general_information} />
           </div>
           {policies.map(policy => (
-            <div className="table__background">
+            <div key={policy[0].value} className="table__background">
               <ListPolicy policy={policy} />
             </div>
           ))}

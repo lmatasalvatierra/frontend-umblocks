@@ -42,11 +42,11 @@ class MainLayout extends Component {
               <Col className="header__title" span={8}>
                 Umblocks
               </Col>
-              <Col className="header__user-profile" span={3} offset={10}>
+              <Col className="header__user-profile" span={4} offset={8}>
                 {userIcon(user_type)}
                 {name}
               </Col>
-              <Col className="header__logout" span={3}>
+              <Col className="header__logout" span={4}>
                 <Link
                   to="/login"
                   onClick={this.handleLogout}
