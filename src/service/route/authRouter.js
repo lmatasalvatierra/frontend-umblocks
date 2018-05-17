@@ -21,6 +21,7 @@ authRouter.post('/api/v1/login', async ctx => {
           user_type: 'owner',
           username: ctx.request.body.username,
           user_id: uuid,
+          name: Web3.utils.hexToAscii(result[2]),
         };
         break;
       case 1:
@@ -29,6 +30,7 @@ authRouter.post('/api/v1/login', async ctx => {
           user_type: 'carrier',
           username: ctx.request.body.username,
           user_id: uuid,
+          name: Web3.utils.hexToAscii(result[2]),
         };
         break;
       case 2:
@@ -37,6 +39,7 @@ authRouter.post('/api/v1/login', async ctx => {
           user_type: 'broker',
           username: ctx.request.body.username,
           user_id: uuid,
+          name: Web3.utils.hexToAscii(result[2]),
         };
         break;
       default:
