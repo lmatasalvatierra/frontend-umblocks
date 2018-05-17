@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Modal, Button, Form, Input, DatePicker, Cascader, Radio } from 'antd';
 
@@ -123,5 +124,16 @@ class CreatePolicy extends React.Component {
     );
   }
 }
+
+CreatePolicy.propTypes = {
+  handleOk: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  form: PropTypes.object,
+  validateFields: PropTypes.func,
+  getFieldsValue: PropTypes.func,
+  getFieldDecorator: PropTypes.func,
+  visible: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 export default createForm()(CreatePolicy);

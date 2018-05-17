@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Row, Col, Button, Table, Input, Divider, Modal } from 'antd';
 import { connect } from 'react-redux';
@@ -194,6 +195,17 @@ class CarrierIndex extends Component {
     );
   }
 }
+
+CarrierIndex.propTypes = {
+  gettingPolicies: PropTypes.func.isRequired,
+  viewPolicy: PropTypes.func.isRequired,
+  cancellingPolicy: PropTypes.func.isRequired,
+  storePolicy: PropTypes.func.isRequired,
+  loadingPolicies: PropTypes.bool,
+  policies_list: PropTypes.array,
+  data: PropTypes.object,
+  user_id: PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   ...state.policies,
