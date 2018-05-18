@@ -38,6 +38,18 @@ policyRouter.get('/api/v1/policy/:id', async ctx => {
   }
 });
 
+policyRouter.get('/api/v1/policies/uuid', async ctx => {
+  try {
+    const manager = await ctx.manager.deployed();
+    const policiesUUID = await manager.getPoliciesUUID.call();
+    const parseUUUIDs = policiesUUID.map(uuid => hexToUuid(uuid));
+    ctx.response.body = parseUUUIDs;
+  } catch (err) {
+    logger.debug(err);
+    ctx.throw('Generic Error', 500);
+  }
+});
+
 policyRouter.put('/api/v1/policy/:id', async ctx => {
   try {
     const manager = await ctx.manager.deployed();
