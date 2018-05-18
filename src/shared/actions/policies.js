@@ -7,10 +7,12 @@ import {
   POLICIES_SUMMARY,
   POLICY_CANCEL,
   POLICIES_SUMMARY_BEGIN,
+  POLICIES_UUID_RETRIEVE,
 } from '../constant/ActionTypes';
 
 const API_URL = UrlConstants(process.env.API_BASE_URL).POLICY;
 const API_CARRIER = UrlConstants(process.env.API_BASE_URL).CARRIER;
+const API_POLICIES = UrlConstants(process.env.API_BASE_URL).POLICIES;
 
 function policySummaryBegin() {
   return {
@@ -43,6 +45,20 @@ function policyCancel(policy) {
   return {
     type: POLICY_CANCEL,
     payload: policy,
+  };
+}
+
+function getPoliciesUUID(uuids) {
+  return {
+    type: POLICIES_UUID_RETRIEVE,
+    payload: uuids,
+  };
+}
+
+export function gettingPoliciesUUID() {
+  return async function(dispatch) {
+    const result = await request.get(`${API_POLICIES}/uuid`);
+    dispatch(getPoliciesUUID(result));
   };
 }
 

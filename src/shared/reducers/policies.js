@@ -20,6 +20,11 @@ export default (state = initialState, action) => {
               : policy,
         ),
       };
+    case 'POLICIES_UUID_RETRIEVE':
+      return {
+        ...state,
+        policies_uuid: action.payload.data,
+      };
     case 'POLICIES_SUMMARY':
       return {
         ...state,
