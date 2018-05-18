@@ -10,6 +10,7 @@ import {
   viewingCertificate,
   gettingCertificatesSummary,
 } from '../../actions/certificates';
+import { gettingPoliciesUUID } from '../../actions/policies';
 
 class BrokerIndex extends Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class BrokerIndex extends Component {
     this.setState({
       visible: true,
     });
+    this.props.gettingPoliciesUUID();
   };
 
   handleOk = certificate => {
@@ -171,6 +173,7 @@ const mapDispatchToProps = dispatch => {
     viewCertificate: (certificateid, userid) =>
       dispatch(viewingCertificate(certificateid, userid)),
     gettingCertificates: userid => dispatch(gettingCertificatesSummary(userid)),
+    gettingPoliciesUUID: () => dispatch(gettingPoliciesUUID()),
   };
 };
 
