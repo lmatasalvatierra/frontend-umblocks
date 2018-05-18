@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
-import { Modal, Button, Form, Input, DatePicker, Icon } from 'antd';
+import {
+  Modal,
+  Button,
+  Form,
+  Input,
+  DatePicker,
+  Icon,
+  AutoComplete,
+} from 'antd';
 
 const FormItem = Form.Item;
 const createForm = Form.create;
@@ -43,7 +52,7 @@ class CreateCertificate extends React.Component {
   };
 
   render() {
-    const { visible, loading } = this.props;
+    const { visible, loading, policies_uuid } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
 
     const emailProps = getFieldDecorator('email', {
@@ -55,16 +64,19 @@ class CreateCertificate extends React.Component {
 
     getFieldDecorator('keys', { initialValue: [0] });
     const keys = getFieldValue('keys');
-    const formItems = keys.map((k, index) => {
+    const policies = keys.map((k, index) => {
       return (
         <FormItem label={index === 0 ? 'Policies' : ''} required key={k}>
           {getFieldDecorator(`policies[${k}]`, {
             rules: [{ required: true, message: 'Required field' }],
           })(
-            <Input
+            <AutoComplete
+              dataSource={policies_uuid}
               size="large"
-              placeholder="Policy Number"
               style={{ width: '90%', marginRight: '8px' }}
+              filterOption={(inputValue, option) =>
+                option.key.indexOf(inputValue) > -1}
+              placeholder="Policy Number"
             />,
           )}
           {keys.length > 1 ? (
@@ -109,7 +121,7 @@ class CreateCertificate extends React.Component {
             <FormItem label="Effective Date" style={{ marginBottom: 20 }}>
               {effectiveProps(<DatePicker size="large" />)}
             </FormItem>
-            {formItems}
+            {policies}
             <FormItem>
               <Button type="primary" onClick={this.add}>
                 <Icon type="plus" /> Policy
@@ -131,6 +143,11 @@ CreateCertificate.propTypes = {
   getFieldDecorator: PropTypes.func,
   visible: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  policies_uuid: PropTypes.array,
 };
 
-export default createForm()(CreateCertificate);
+const mapStateToProps = state => ({
+  ...state.policies,
+});
+
+export default connect(mapStateToProps)(createForm()(CreateCertificate));
