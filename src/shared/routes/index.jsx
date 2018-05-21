@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import NoMatch from '../layouts/no_match/NoMatch';
 import PrivateRoute from '../components/private_route/PrivateRoute';
 import Login from '../layouts/login/Login';
@@ -10,6 +9,7 @@ import BrokerIndex from '../layouts/broker/index';
 import CarrierIndex from '../layouts/carrier/index';
 import PolicyView from '../layouts/policy/Policy';
 import CertificateView from '../layouts/certificate/Certificate';
+import CookieAuth from '../components/cookie_auth/CookieAuth';
 
 class Routes extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={() => <Redirect to={'/login'} />} />
+        <Route exact path="/" component={CookieAuth} />
         <Route path="/login" component={Login} />
         <PrivateRoute
           path="/owner/:owner/certificate/:certificateid"
