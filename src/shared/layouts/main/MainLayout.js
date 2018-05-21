@@ -27,6 +27,7 @@ const userIcon = userType => {
 
 class MainLayout extends Component {
   handleLogout = () => {
+    document.cookie = 'user= ; path=/';
     this.props.onLogout();
   };
 
