@@ -18,9 +18,12 @@ export function userLoggedOut() {
   };
 }
 
-export function loginUser(username, password) {
-  return async function(dispatch) {
+export function loginUser(username, password, remember) {
+  return async dispatch => {
     const result = await request.post(API_URL, { username, password });
+    if(remember) {
+      document.cookie = `user=${JSON.stringify(result.data)}; path:/`;
+    }
     dispatch(userLoggedIn(result.data));
     history.push(`/${result.data.user_type}/${result.data.user_id}`);
   };

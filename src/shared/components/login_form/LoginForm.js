@@ -26,7 +26,11 @@ class LoginForm extends Component {
       const values = this.props.form.getFieldsValue();
       this.props.onSubmit.bind(this);
       this.props
-        .onSubmit(values.userName, web3.utils.keccak256(values.password))
+        .onSubmit(
+          values.userName,
+          web3.utils.keccak256(values.password),
+          values.remember,
+        )
         .catch(() => {
           this.setState({ loading: false, loginError: true });
         });
@@ -114,7 +118,7 @@ LoginForm.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmit: (username, password) => dispatch(loginUser(username, password)),
+    onSubmit: (username, password, remember) => dispatch(loginUser(username, password, remember)),
   };
 };
 
