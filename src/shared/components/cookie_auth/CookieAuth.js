@@ -23,21 +23,12 @@ const getCookie = cname => {
 class CookieAuth extends Component {
   handleAuthentication = () => {
     const JSONUser = getCookie('user');
-    if(JSONUser === '') {
+    if(JSONUser === '{}' || JSONUser === '') {
       return <Redirect to='/login'/>;
     } else {
       const user = JSON.parse(JSONUser);
       this.props.onVisit(user);
-      switch (user.user_type) {
-        case 'owner':
-          return <Redirect to={`/owner/${user.user_id}`} />;
-        case 'carrier':
-          return <Redirect to={`/carrier/${user.user_id}`} />;
-        case 'broker':
-          return <Redirect to={`/broker/${user.user_id}`} />;
-        default:
-          break;
-      }
+      return <Redirect to={`/${user.user_type}/${user.user_id}`} />;
     }
   };
 
